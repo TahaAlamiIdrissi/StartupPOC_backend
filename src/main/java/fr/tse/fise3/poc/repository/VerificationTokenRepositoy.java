@@ -1,10 +1,10 @@
-package io.alami.idrissi.achieve.repository;
+package fr.tse.fise3.poc.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import io.alami.idrissi.achieve.domain.VerificationToken;
+import fr.tse.fise3.poc.domain.VerificationToken;
 
 public interface VerificationTokenRepositoy extends CrudRepository<VerificationToken, Long> {
 

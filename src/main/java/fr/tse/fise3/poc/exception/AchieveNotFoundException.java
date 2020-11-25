@@ -1,4 +1,4 @@
-package io.alami.idrissi.achieve.exception;
+package fr.tse.fise3.poc.exception;
 
 public class AchieveNotFoundException extends RuntimeException{
 

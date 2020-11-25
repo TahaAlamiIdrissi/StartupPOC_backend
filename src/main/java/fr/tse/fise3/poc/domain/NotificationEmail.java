@@ -1,4 +1,4 @@
-package io.alami.idrissi.achieve.domain;
+package fr.tse.fise3.poc.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

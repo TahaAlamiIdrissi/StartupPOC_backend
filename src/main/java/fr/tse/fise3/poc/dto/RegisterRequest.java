@@ -1,4 +1,4 @@
-package io.alami.idrissi.achieve.dto;
+package fr.tse.fise3.poc.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

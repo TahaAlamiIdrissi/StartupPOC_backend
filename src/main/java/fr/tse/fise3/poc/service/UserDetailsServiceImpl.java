@@ -1,4 +1,4 @@
-package io.alami.idrissi.achieve.service;
+package fr.tse.fise3.poc.service;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.alami.idrissi.achieve.domain.User;
-import io.alami.idrissi.achieve.repository.UserRepository;
+import fr.tse.fise3.poc.domain.User;
+import fr.tse.fise3.poc.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
 @Service

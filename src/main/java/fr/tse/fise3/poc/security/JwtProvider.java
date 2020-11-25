@@ -1,4 +1,4 @@
-package io.alami.idrissi.achieve.security;
+package fr.tse.fise3.poc.security;
 
 import java.io.InputStream;
 import java.security.KeyStore;
@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import io.alami.idrissi.achieve.exception.AchieveNotFoundException;
+import fr.tse.fise3.poc.exception.AchieveNotFoundException;
 import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
 

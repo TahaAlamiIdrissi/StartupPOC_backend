@@ -1,4 +1,4 @@
-package io.alami.idrissi.achieve.controller;
+package fr.tse.fise3.poc.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.alami.idrissi.achieve.dto.AuthenticationResponse;
-import io.alami.idrissi.achieve.dto.LoginRequest;
-import io.alami.idrissi.achieve.dto.RegisterRequest;
-import io.alami.idrissi.achieve.service.AuthService;
+import fr.tse.fise3.poc.dto.AuthenticationResponse;
+import fr.tse.fise3.poc.dto.LoginRequest;
+import fr.tse.fise3.poc.dto.RegisterRequest;
+import fr.tse.fise3.poc.service.AuthService;
 import lombok.AllArgsConstructor;
 
 @RestController

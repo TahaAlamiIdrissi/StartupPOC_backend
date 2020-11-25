@@ -1,4 +1,4 @@
-package io.alami.idrissi.achieve.config;
+package fr.tse.fise3.poc.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

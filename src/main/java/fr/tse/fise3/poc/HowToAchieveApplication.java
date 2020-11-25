@@ -1,4 +1,4 @@
-package io.alami.idrissi.achieve;
+package fr.tse.fise3.poc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

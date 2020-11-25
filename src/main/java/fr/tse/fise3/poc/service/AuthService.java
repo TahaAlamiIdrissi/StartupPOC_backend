@@ -1,4 +1,4 @@
-package io.alami.idrissi.achieve.service;
+package fr.tse.fise3.poc.service;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -13,16 +13,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import io.alami.idrissi.achieve.domain.NotificationEmail;
-import io.alami.idrissi.achieve.domain.User;
-import io.alami.idrissi.achieve.domain.VerificationToken;
-import io.alami.idrissi.achieve.dto.AuthenticationResponse;
-import io.alami.idrissi.achieve.dto.LoginRequest;
-import io.alami.idrissi.achieve.dto.RegisterRequest;
-import io.alami.idrissi.achieve.exception.AchieveNotFoundException;
-import io.alami.idrissi.achieve.repository.UserRepository;
-import io.alami.idrissi.achieve.repository.VerificationTokenRepositoy;
-import io.alami.idrissi.achieve.security.JwtProvider;
+import fr.tse.fise3.poc.domain.NotificationEmail;
+import fr.tse.fise3.poc.domain.User;
+import fr.tse.fise3.poc.domain.VerificationToken;
+import fr.tse.fise3.poc.dto.AuthenticationResponse;
+import fr.tse.fise3.poc.dto.LoginRequest;
+import fr.tse.fise3.poc.dto.RegisterRequest;
+import fr.tse.fise3.poc.exception.AchieveNotFoundException;
+import fr.tse.fise3.poc.repository.UserRepository;
+import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
+import fr.tse.fise3.poc.security.JwtProvider;
 import lombok.AllArgsConstructor;
 
 
