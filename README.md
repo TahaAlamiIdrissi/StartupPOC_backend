@@ -1,3 +1,3 @@
 # StartupPOC_backend
 
-A back-end project using Springboot  
+Startup POC project back-end using Springboot  
