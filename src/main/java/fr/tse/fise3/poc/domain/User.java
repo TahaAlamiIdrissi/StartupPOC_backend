@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -37,10 +36,5 @@ public class User {
 	
 	private Instant createdAt;
 	private boolean enabled;
-	
-	// many to one relationship from user to role
-	
-	@ManyToOne
-	private Role role;
 
 }
