@@ -39,7 +39,6 @@ public class User {
 	private boolean enabled;
 	
 	// many to one relationship from user to role
-	
 	@ManyToOne
 	private Role role;
 
