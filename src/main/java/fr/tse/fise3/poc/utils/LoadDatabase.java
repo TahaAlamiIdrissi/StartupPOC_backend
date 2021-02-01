@@ -16,8 +16,6 @@ public class LoadDatabase {
 	@Bean
 	@Profile("test")
 	CommandLineRunner initTestData(ProjectRepository projectRepository, ProjectService projectService) {
-		
-		
 		return new CommandLineRunner() {
 
 			public void run(String... args) throws Exception {
