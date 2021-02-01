@@ -35,10 +35,15 @@ public class User {
 	@NotBlank(message = "password required")
 	private String password;
 	
+	private String firstname;
+	private String lastname;
 	private Instant createdAt;
 	private boolean enabled;
 	
+	@ManyToOne
+	private User manager;
 	// many to one relationship from user to role
+	
 	@ManyToOne
 	private Role role;
 

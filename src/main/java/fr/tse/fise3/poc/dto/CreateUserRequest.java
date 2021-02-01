@@ -4,6 +4,7 @@
 package fr.tse.fise3.poc.dto;
 
 import java.time.Instant;
+
 import fr.tse.fise3.poc.domain.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class CreateUserRequest {
 	private String email;
 	private String password;
 	private Instant createdAt;
-	
-	private Role role;
+	private Long currentUserId;
+	private Long roleId;
 
 }
