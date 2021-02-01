@@ -1,6 +1,5 @@
 package fr.tse.fise3.poc.controller;
 
-import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("/")
+	@PostMapping("/create")
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest){
 		return new ResponseEntity<User>(userService.createUser(createUserRequest),HttpStatus.CREATED);
 	}

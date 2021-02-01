@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fr.tse.fise3.poc.domain.Role;
@@ -26,6 +27,10 @@ public class UserServiceImpl implements UserService {
 	private RoleRepository roleRepository;
 	
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	
+	@Autowired
 	private UserRepository userRepository;	
 	
 	@Autowired	
@@ -40,15 +45,16 @@ public class UserServiceImpl implements UserService {
 	
 	
 	public User createUser(CreateUserRequest createUserRequest) {
-		
+
 		// save data's coming from inputs
 		User user = new User();
 		user.setUsername(createUserRequest.getUsername());
-		user.setPassword(createUserRequest.getPassword());
+		user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
 		user.setEmail(createUserRequest.getEmail());
 		user.setFirstname(createUserRequest.getFirstname());
 		user.setLastname(createUserRequest.getLastname());
 		user.setCreatedAt(Instant.now());
+
 		// Set the user's role
 		Role role = roleRepository.findById(createUserRequest.getRoleId()).get();
 		user.setRole(role);
@@ -57,8 +63,7 @@ public class UserServiceImpl implements UserService {
                 .getPrincipal();
 		
 		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
-		
-		if(currentUser.getRole().equals(roleRepository.findById(2L).get()))
+		if(currentUser.getRole().getLabel().equals("MANAGER"))
 			user.setManager(currentUser);
 		
 		return userRepository.save(user);

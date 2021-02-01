@@ -25,6 +25,6 @@ public class Role {
 
 	@Id
 	private Long id;
-	private String role;
+	private String label;
 	
 }

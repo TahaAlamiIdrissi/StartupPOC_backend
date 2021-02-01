@@ -15,6 +15,7 @@ import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.AuthenticationResponse;
 import fr.tse.fise3.poc.dto.LoginRequest;
 import fr.tse.fise3.poc.dto.RegisterRequest;
+import fr.tse.fise3.poc.repository.RoleRepository;
 import fr.tse.fise3.poc.service.AuthService;
 import lombok.AllArgsConstructor;
 
@@ -25,6 +26,7 @@ public class AuthController {
 	
 	
 	private final AuthService authService;
+	private final RoleRepository role;
 
 	@PostMapping("/signup")
 	public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
@@ -45,9 +47,8 @@ public class AuthController {
 	
 	@GetMapping("/index")
 	public String index() {
-		UserDetails user =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
-		return "index \n"+user.getUsername() ;
+		
+		return "index \n"+ role.findAll().get(0);
 	}
 	
 	
