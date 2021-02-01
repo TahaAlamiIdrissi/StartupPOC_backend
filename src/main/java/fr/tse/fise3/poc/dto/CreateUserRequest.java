@@ -25,7 +25,6 @@ public class CreateUserRequest {
 	private String email;
 	private String password;
 	private Instant createdAt;
-	private Long currentUserId;
 	private Long roleId;
 
 }

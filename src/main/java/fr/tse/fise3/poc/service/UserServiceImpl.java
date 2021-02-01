@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import fr.tse.fise3.poc.domain.Role;
@@ -51,10 +53,13 @@ public class UserServiceImpl implements UserService {
 		Role role = roleRepository.findById(createUserRequest.getRoleId()).get();
 		user.setRole(role);
 		// if this ( MANAGER ) ROLE <= EMPLOYEE ( COMMING FROM the client side)
-		User userRole = userRepository.findById(createUserRequest.getCurrentUserId()).get();
-		if(userRole.getRole().equals("MANAGER")) {
-			user.setManager(userRole);
-		}
+		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+		
+		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
+		
+		if(currentUser.getRole().equals(roleRepository.findById(2L).get()))
+			user.setManager(currentUser);
 		
 		return userRepository.save(user);
 	}
