@@ -14,6 +14,8 @@ import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
 import fr.tse.fise3.poc.repository.UserRepository;
+import fr.tse.fise3.poc.dto.CreateUserRequest;
+
 import fr.tse.fise3.poc.service.UserService;
 
 @RestController
@@ -23,14 +25,16 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
+  @Autowired
 	private UserRepository userRepository;
 	
 	
+
 	@PostMapping("/create")
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest){
 		return new ResponseEntity<User>(userService.createUser(createUserRequest),HttpStatus.CREATED);
 	}
+
 	
 	@PostMapping("/change")
 	public ResponseEntity<User> changeAffectationUser(@RequestBody ChangeUserRequest changeUserRequest){
