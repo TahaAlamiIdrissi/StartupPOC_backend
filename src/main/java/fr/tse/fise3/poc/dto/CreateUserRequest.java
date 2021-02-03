@@ -4,8 +4,6 @@
 package fr.tse.fise3.poc.dto;
 
 import java.time.Instant;
-
-import fr.tse.fise3.poc.domain.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

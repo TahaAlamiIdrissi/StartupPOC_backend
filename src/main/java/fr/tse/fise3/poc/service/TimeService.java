@@ -56,7 +56,7 @@ public class TimeService {
 		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder
 													.getContext()
 													.getAuthentication()
-									                .getPrincipal();
+									        .getPrincipal();
 		
 		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
 		Time time = new Time();
