@@ -1,6 +1,7 @@
 package fr.tse.fise3.poc.service;
 
 import java.time.Instant;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -22,11 +23,9 @@ import fr.tse.fise3.poc.domain.Role;
 import fr.tse.fise3.poc.domain.User;
 
 import fr.tse.fise3.poc.dto.CreateUserRequest;
-import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.RoleRepository;
-import fr.tse.fise3.poc.repository.TimeRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
-import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
+
 
 
 
@@ -52,11 +51,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired	
 	private VerificationTokenRepositoy verificationTokenRepository;
 	
-
 	@Autowired
 	private MailService mailService;
 
-	
 	
 	public User createUser(CreateUserRequest createUserRequest) {
 
@@ -72,6 +69,7 @@ public class UserServiceImpl implements UserService {
 		// Set the user's role
 		Role role = roleRepository.findById(createUserRequest.getRoleId()).get();
 		user.setRole(role);
+		
 		// if this ( MANAGER ) ROLE <= EMPLOYEE ( COMMING FROM the client side)
 		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
