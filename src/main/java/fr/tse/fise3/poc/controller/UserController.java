@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import fr.tse.fise3.poc.domain.User;
+import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
-
 import fr.tse.fise3.poc.service.UserService;
 
 @RestController
@@ -34,6 +33,11 @@ public class UserController {
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest){
 		return new ResponseEntity<User>(userService.createUser(createUserRequest),HttpStatus.CREATED);
 	}
+	
+	@PostMapping("/change-role")
+	public ResponseEntity<User> changeUserRole(@RequestBody ChangeUserRoleRequest changeUserRoleRequest){
+		return new ResponseEntity<User>(userService.changeUserRole(changeUserRoleRequest),HttpStatus.OK);
+	}
 
 	
 	@PostMapping("/change")
@@ -42,12 +46,10 @@ public class UserController {
 	}
 	
 	
-	
 	@GetMapping("/test")
 	public Iterable<User> index() {
 		
 		return userRepository.findAll();
 	}
-	
 	
 }

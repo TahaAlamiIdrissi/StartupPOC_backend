@@ -3,19 +3,22 @@
  */
 package fr.tse.fise3.poc.service;
 
+import java.util.List;
 import fr.tse.fise3.poc.domain.User;
+import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
-
 import fr.tse.fise3.poc.dto.CreateUserRequest;
 
-/**
- * @author root
- *
- */
 public interface UserService {
 
-	User createUser(CreateUserRequest createUserRequest);
+	public User createUser(CreateUserRequest createUserRequest);
 
-	User changeAffectationForUser(ChangeUserRequest changeUserRequest);
+	public List<User> findUsersofManager(Long idUser);
+	
+	
+	public User changeUserRole(ChangeUserRoleRequest changeUserRoleRequest);
+	
+
+	public User changeAffectationForUser(ChangeUserRequest changeUserRequest);
 
 }
