@@ -3,10 +3,12 @@ package fr.tse.fise3.poc.domain;
 import java.time.Instant;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
@@ -49,7 +51,5 @@ public class User {
 	@ManyToOne
 	private Role role;
 	
-	@ManyToMany
-	private Set<Project> projects;
 
 }
