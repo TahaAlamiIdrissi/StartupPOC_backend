@@ -13,7 +13,6 @@ import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
 @Service
 public class TimeService {
 
-	
 	@Autowired
 	private RoleRepository roleRepository;
 	

@@ -1,5 +1,8 @@
 package fr.tse.fise3.poc.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,7 @@ public class ProjectService {
 	
 	@Autowired	
 	private VerificationTokenRepositoy verificationTokenRepository;
+
 	
 	@Transactional(readOnly = true)
 	public Collection<Project> findAllProjects() {
