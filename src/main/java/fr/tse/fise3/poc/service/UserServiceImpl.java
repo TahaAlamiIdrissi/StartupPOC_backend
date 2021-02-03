@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import fr.tse.fise3.poc.domain.NotificationEmail;
 import fr.tse.fise3.poc.domain.Role;
+import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.domain.VerificationToken;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
@@ -22,6 +23,7 @@ import fr.tse.fise3.poc.dto.ChangeUserRequest;
 
 
 import fr.tse.fise3.poc.dto.CreateUserRequest;
+import fr.tse.fise3.poc.dto.UserBody;
 import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.RoleRepository;
 import fr.tse.fise3.poc.repository.TimeRepository;
@@ -116,6 +118,12 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return userRepository.save(user);
+	}
+
+	@Override
+	public Time getTimeContent(UserBody user) {
+		// TODO Auto-generated method stub
+		return timeRepository.findByUserUserId(user.getUserId());
 	}
 	
 	

@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
+import fr.tse.fise3.poc.dto.UserBody;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
 
@@ -44,9 +46,9 @@ public class UserController {
 	
 	
 	@GetMapping("/test")
-	public Iterable<User> index() {
+	public Time index(@RequestBody UserBody user ) {
 		
-		return userRepository.findAll();
+		return userService.getTimeContent(user);
 	}
 	
 	
