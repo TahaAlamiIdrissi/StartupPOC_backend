@@ -1,7 +1,7 @@
 package fr.tse.fise3.poc.service;
 
 import java.time.Instant;
-
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -116,6 +116,11 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return userRepository.save(user);
+	}
+	
+	@Override
+	public List<User> findUsersofManager(Long idManager) {
+		return userRepository.findByManagerUserId(idManager);
 	}
 	
 	
