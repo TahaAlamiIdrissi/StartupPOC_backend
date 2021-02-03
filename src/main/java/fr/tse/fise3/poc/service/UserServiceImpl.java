@@ -23,8 +23,11 @@ import fr.tse.fise3.poc.domain.Role;
 import fr.tse.fise3.poc.domain.User;
 
 import fr.tse.fise3.poc.dto.CreateUserRequest;
+import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.RoleRepository;
+import fr.tse.fise3.poc.repository.TimeRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
+import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
 
 
 
