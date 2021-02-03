@@ -14,6 +14,7 @@ import fr.tse.fise3.poc.domain.NotificationEmail;
 import fr.tse.fise3.poc.domain.Role;
 import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.domain.VerificationToken;
+import fr.tse.fise3.poc.dto.ChangeUserRequest;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
 import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.RoleRepository;
@@ -70,6 +71,7 @@ public class UserServiceImpl implements UserService {
 		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
 		if(currentUser.getRole().getLabel().equals("MANAGER"))
 			user.setManager(currentUser);
+		
 		User savedUser = userRepository.save(user);
 		String token = generateVerificationToken(user);
 		mailService.sendMail(new NotificationEmail("Please Activate your Account",
@@ -85,8 +87,27 @@ public class UserServiceImpl implements UserService {
 		verificationToken.setToken(token);
 		verificationToken.setUser(user);
 		verificationTokenRepository.save(verificationToken);
-		
 		return token;
 	}
+	@Override
+	public User changeAffectationForUser(ChangeUserRequest changeUserRequest) {
+		
+		// get user by id and manager by id
+		
+		User user = userRepository.findById(changeUserRequest.getUserId()).get();
+		User manager = userRepository.findById(changeUserRequest.getManagerId()).get();
+		
+		//user.getRole().getId() if roleId == 1 then do
+		// user.setManager(manager)
+		//userRepository.save(User)
+		
+		if(user.getRole().getId().equals(1L) && manager.getRole().getId().equals(2L)) {
+			user.setManager(manager);
+		}
+		
+		return userRepository.save(user);
+	}
+	
+	
 
 }

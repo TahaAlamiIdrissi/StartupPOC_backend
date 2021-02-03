@@ -45,7 +45,7 @@ public class AuthController {
 		return authService.login(loginRequest);
 	}
 	
-	@GetMapping("/index")
+	@GetMapping("/test")
 	public String index() {
 		
 		return "index \n"+ role.findAll().get(0);
