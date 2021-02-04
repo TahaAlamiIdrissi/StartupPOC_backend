@@ -8,7 +8,6 @@ import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
 
 import fr.tse.fise3.poc.dto.CreateUserRequest;
-import fr.tse.fise3.poc.dto.UserBody;
 
 /**
  * @author root

@@ -23,7 +23,6 @@ import fr.tse.fise3.poc.dto.ChangeUserRequest;
 
 
 import fr.tse.fise3.poc.dto.CreateUserRequest;
-import fr.tse.fise3.poc.dto.UserBody;
 import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.RoleRepository;
 import fr.tse.fise3.poc.repository.TimeRepository;
