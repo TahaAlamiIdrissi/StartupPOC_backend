@@ -42,7 +42,7 @@ public class LoadDatabase {
 
 			public void run(String... args) throws Exception {
                initRoleTable(roleRepository);
-               initUserTable(userRepository);
+               //initUserTable(userRepository);
                initProjectTable(projectRepository);
                initTimeTable(timeRepository);
 			}	
@@ -60,6 +60,7 @@ public class LoadDatabase {
 		Time time = new Time();
 		time.setDate_start(LocalDateTime.now());
 		time.setDate_end(LocalDateTime.now());
+		timeRepository.save(time);
 	}
 	
 	private void initUserTable(UserRepository userRepository) {

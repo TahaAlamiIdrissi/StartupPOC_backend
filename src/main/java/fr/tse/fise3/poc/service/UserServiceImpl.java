@@ -120,11 +120,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
-	@Override
-	public Time getTimeContent(UserBody user) {
-		// TODO Auto-generated method stub
-		return timeRepository.findByUserUserId(user.getUserId());
-	}
+	
 	
 	
 

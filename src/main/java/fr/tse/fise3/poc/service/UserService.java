@@ -20,6 +20,5 @@ public interface UserService {
 
 	User changeAffectationForUser(ChangeUserRequest changeUserRequest);
 	
-	Time getTimeContent(UserBody user);
 
 }
