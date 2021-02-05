@@ -1,27 +1,20 @@
 package fr.tse.fise3.poc.service;
 
 import java.time.Instant;
-
 import java.util.List;
 import java.util.UUID;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-
 import fr.tse.fise3.poc.domain.NotificationEmail;
 import fr.tse.fise3.poc.domain.Role;
 import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.domain.User;
+import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
 import fr.tse.fise3.poc.domain.VerificationToken;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
-
-
-
 import fr.tse.fise3.poc.dto.CreateUserRequest;
 import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.RoleRepository;
@@ -119,7 +112,43 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
-	
+
+	@Override
+	public List<User> findUsersofManager(Long idUser) {
+		return userRepository.findByManagerUserId(idUser);
+	}
+
+
+	@Override
+	public User changeUserRole(ChangeUserRoleRequest changeUserRoleRequest) {
+		
+		User user = userRepository.findById(changeUserRoleRequest.getUserId()).get();
+		Role newRole = roleRepository.findById(changeUserRoleRequest.getRoleId()).get();
+		
+		//if the current role is manager 
+		//we should delete manager for affected users 
+		//manager -> admin 
+		if (user.getRole().getId().equals(2L) && !newRole.getId().equals(2L)) {
+      
+			List <User> usersOfManager = findUsersofManager(user.getUserId());
+			for (User u :usersOfManager) {
+				u.setManager(null);
+				userRepository.save(u);				
+			}						
+		}
+    
+		//employee -> manager or employee -> admin
+		if (user.getRole().getId().equals(1L) && (newRole.getId().equals(2L) || newRole.getId().equals(3L))) {
+			user.setManager(null);
+			
+		}
+		
+		//affect the new role
+		user.setRole(newRole);
+		
+		return userRepository.save(user);
+	}
+
 	
 	
 
