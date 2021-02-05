@@ -1,6 +1,7 @@
 package fr.tse.fise3.poc.service;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,6 @@ import fr.tse.fise3.poc.repository.RoleRepository;
 import fr.tse.fise3.poc.repository.TimeRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
-
-
 
 
 @Service
@@ -149,6 +148,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
+	
+	@Override
+	public List<User> findUsersofManager(Long idManager) {
+		return userRepository.findByManagerUserId(idManager);
+	}
 	
 	
 
