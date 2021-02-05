@@ -34,6 +34,12 @@ public class TimeController {
 	Time createTask(@RequestBody TimeRequest timeRequest) {
 		return this.timeService.createTime(timeRequest) ;
 	}
+	
+	@GetMapping("/time/{userId}")
+	public Time index(@PathVariable Long userId ) {
+		
+		return timeService.getTimeContent(userId);
+	}
 
 	@PostMapping("/time/user/{userId}")
 	Collection<Time> findUserTimesForManager(@PathVariable Long userId) {
