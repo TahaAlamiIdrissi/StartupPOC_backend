@@ -73,4 +73,9 @@ public class TimeService {
 		
 	}
 	
+	public Time getTimeContent(Long userId) {
+		// TODO Auto-generated method stub
+		return timeRepository.findByUserUserId(userId);
+	}
+	
 }

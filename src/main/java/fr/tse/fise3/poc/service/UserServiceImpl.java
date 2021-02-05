@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import fr.tse.fise3.poc.domain.NotificationEmail;
 import fr.tse.fise3.poc.domain.Role;
+import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
 import fr.tse.fise3.poc.domain.VerificationToken;
@@ -147,6 +148,7 @@ public class UserServiceImpl implements UserService {
 		
 		return userRepository.save(user);
 	}
+
 	
 	
 
