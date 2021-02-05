@@ -12,5 +12,6 @@ import fr.tse.fise3.poc.domain.Time;
  *
  */
 public interface TimeRepository extends JpaRepository<Time, Long> {
-
+	
+	Time findByUserUserId(Long userId);
 }
