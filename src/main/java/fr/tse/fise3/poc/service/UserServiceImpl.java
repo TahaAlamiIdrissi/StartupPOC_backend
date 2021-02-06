@@ -112,10 +112,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-	@Override
-	public List<User> findUsersofManager(Long idUser) {
-		return userRepository.findByManagerUserId(idUser);
-	}
+//	@Override
+//	public List<User> findUsersofManager(Long idUser) {
+//		return userRepository.findByManagerUserId(idUser);
+//	}
 
 
 	@Override

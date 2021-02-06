@@ -52,9 +52,10 @@ public class TimeController {
 		return new ResponseEntity<Time>(this.timeService.createTime(timeRequest),HttpStatus.CREATED) ;
 	}
 	
-	@GetMapping("/times/{userId}")
+	@GetMapping("/times/content/{userId}")
 	public ResponseEntity<Collection<Time>> index(@PathVariable Long userId ) {
 		return new ResponseEntity<Collection<Time>>(timeService.getTimeContent(userId),HttpStatus.OK);
+	}
 
 	
 	@GetMapping("/times/{userId}/export/pdf")
@@ -67,7 +68,7 @@ public class TimeController {
 	        String headerValue = "attachment; filename=times_" + currentDateTime + ".pdf";
 	        response.setHeader(headerKey, headerValue);
 	         
-	        List<Time> timesOfUser = timeService.getTimeContent(userId);
+	        List<Time> timesOfUser = timeService.findTimesOfUser(userId);
 	        
 	        User user = userService.findUser(userId);
 	         
