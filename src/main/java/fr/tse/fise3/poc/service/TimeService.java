@@ -75,7 +75,7 @@ public class TimeService {
 	public List<Time> findTimesOfUser(Long idUser) {
 		return this.timeRepository.findByUserUserId(idUser);
   }
-  
+
 	public List<Time> getTimeContent(Long userId) {
 		// TODO Auto-generated method stub
 		return timeRepository.findByUserUserId(userId);

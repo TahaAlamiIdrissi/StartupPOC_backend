@@ -148,6 +148,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
+	@Override
+	public User findUser(Long idUser) {
+		return userRepository.findById(idUser).get();
+	}
+
 	
 	@Override
 	public List<User> findUsersofManager(Long idManager) {
