@@ -1,6 +1,13 @@
 package fr.tse.fise3.poc.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lowagie.text.DocumentException;
+
 import fr.tse.fise3.poc.domain.Time;
+import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.TimeRequest;
+import fr.tse.fise3.poc.exporter.UserReportExporter;
 import fr.tse.fise3.poc.service.TimeService;
+import fr.tse.fise3.poc.service.UserService;
 
 
 @RestController
@@ -27,19 +39,47 @@ public class TimeController {
 	@Autowired 
 	private TimeService timeService;
 	
+	@Autowired 
+	private UserService userService;
+	
 	@GetMapping("/times")
-	public ResponseEntity<Collection<Time>> findAllProjects(){
+	public ResponseEntity<Collection<Time>> findAllTimes(){
 		return new ResponseEntity<Collection<Time>>(this.timeService.findAllTimes(),HttpStatus.OK);
 	}
 	
-	@PostMapping("/time/create")
-	public ResponseEntity<Time> createTask(@RequestBody TimeRequest timeRequest) {
+	@PostMapping("/times")
+	public ResponseEntity<Time> createTime(@RequestBody TimeRequest timeRequest) {
 		return new ResponseEntity<Time>(this.timeService.createTime(timeRequest),HttpStatus.CREATED) ;
 	}
 	
-	@GetMapping("/time/{userId}")
+	@GetMapping("/times/{userId}")
 	public ResponseEntity<Collection<Time>> index(@PathVariable Long userId ) {
 		return new ResponseEntity<Collection<Time>>(timeService.getTimeContent(userId),HttpStatus.OK);
-	}
 
+	
+	@GetMapping("/times/{userId}/export/pdf")
+	public void exportToPDF(HttpServletResponse response, @PathVariable Long userId ) throws DocumentException, IOException {
+	        response.setContentType("application/pdf");
+	        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+	        String currentDateTime = dateFormatter.format(new Date());
+	         
+	        String headerKey = "Content-Disposition";
+	        String headerValue = "attachment; filename=times_" + currentDateTime + ".pdf";
+	        response.setHeader(headerKey, headerValue);
+	         
+	        List<Time> timesOfUser = timeService.getTimeContent(userId);
+	        
+	        User user = userService.findUser(userId);
+	         
+	        UserReportExporter exporter = new UserReportExporter(timesOfUser,user);
+	        exporter.export(response);
+	         
+	    }
+	
+	
+
+	@GetMapping("/times/{userId}")
+	Collection<Time> findUserTimesForManager(@PathVariable Long userId) {
+		return this.timeService.findTimesOfUser(userId) ;
+	}
 }

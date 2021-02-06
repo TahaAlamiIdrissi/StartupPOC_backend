@@ -1,6 +1,8 @@
 package fr.tse.fise3.poc.controller;
 
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,9 +57,8 @@ public class UserController {
 		return new ResponseEntity<User>(userService.changeAffectationForUser(changeUserRequest),HttpStatus.OK);
 	}
 
-	@GetMapping("/test")
+	@GetMapping("/users")
 	public Iterable<User> index() {
-		
 		return userRepository.findAll();
 	}
 

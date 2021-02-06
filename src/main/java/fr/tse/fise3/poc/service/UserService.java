@@ -12,17 +12,14 @@ import fr.tse.fise3.poc.dto.CreateUserRequest;
 
 public interface UserService {
   
-
 	public User createUser(CreateUserRequest createUserRequest);
-  
 
 	public List<User> findUsersofManager(Long idUser);
 	
-	
 	public User changeUserRole(ChangeUserRoleRequest changeUserRoleRequest);
 	
-  
 	public User changeAffectationForUser(ChangeUserRequest changeUserRequest);
 	
+	public User findUser(Long idUser);
 
 }
