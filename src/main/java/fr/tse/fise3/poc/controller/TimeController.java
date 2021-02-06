@@ -77,4 +77,8 @@ public class TimeController {
 	
 	
 
+	@PostMapping("/time/user/{userId}")
+	Collection<Time> findUserTimesForManager(@PathVariable Long userId) {
+		return this.timeService.findTimesOfUser(userId) ;
+	}
 }

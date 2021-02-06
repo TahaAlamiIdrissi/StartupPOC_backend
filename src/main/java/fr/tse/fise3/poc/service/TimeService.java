@@ -22,7 +22,6 @@ import fr.tse.fise3.poc.repository.UserRepository;
 @Service
 public class TimeService {
 
-
 	@Autowired
 	private UserRepository userRepository;	
 	
@@ -39,8 +38,6 @@ public class TimeService {
 		
 		return this.timeRepository.findAll();
 	}
-	
-
 	
 	// Find all time affections of a user 
 	@Transactional(readOnly = true)
@@ -67,16 +64,21 @@ public class TimeService {
 		time.setUser(currentUser);
 		
 		Project project = this.projectRepository.findById(timeRequest.getProjectId()).orElse(null);
-		
 		time.setProject(project);
 		
 		return this.timeRepository.save(time);
 		
 	}
 	
+	// Find all times of a user
+	@Transactional
+	public List<Time> findTimesOfUser(Long idUser) {
+		return this.timeRepository.findByUserUserId(idUser);
+  }
+
 	public List<Time> getTimeContent(Long userId) {
 		// TODO Auto-generated method stub
 		return timeRepository.findByUserUserId(userId);
-	}
+  }
 	
 }
