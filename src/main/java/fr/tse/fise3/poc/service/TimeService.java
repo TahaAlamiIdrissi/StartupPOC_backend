@@ -1,5 +1,6 @@
 package fr.tse.fise3.poc.service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -59,8 +60,8 @@ public class TimeService {
 		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
 		Time time = new Time();
 		
-		time.setDate_start(timeRequest.getDateStart());
-		time.setDate_end(timeRequest.getDateEnd());
+		time.setDateStart(timeRequest.getDateStart());
+		time.setDateEnd(timeRequest.getDateEnd());
 		time.setUser(currentUser);
 		
 		Project project = this.projectRepository.findById(timeRequest.getProjectId()).orElse(null);
@@ -69,16 +70,16 @@ public class TimeService {
 		return this.timeRepository.save(time);
 		
 	}
-	
+
+	public Collection<Time> getTimeContent(Long userId) {
+		// TODO Auto-generated method stub
+		return timeRepository.findAllByUserUserIdAndDateStart(userId,LocalDateTime.now());
+	}
+
 	// Find all times of a user
 	@Transactional
 	public List<Time> findTimesOfUser(Long idUser) {
 		return this.timeRepository.findByUserUserId(idUser);
-  }
-
-	public List<Time> getTimeContent(Long userId) {
-		// TODO Auto-generated method stub
-		return timeRepository.findByUserUserId(userId);
   }
 	
 }

@@ -10,6 +10,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,22 +43,21 @@ public class TimeController {
 	private UserService userService;
 	
 	@GetMapping("/times")
-	public Collection<Time> findAllProjects(){
-		return this.timeService.findAllTimes();
+	public ResponseEntity<Collection<Time>> findAllTimes(){
+		return new ResponseEntity<Collection<Time>>(this.timeService.findAllTimes(),HttpStatus.OK);
 	}
 	
-	@PostMapping("/time/create")
-	public Time createTask(@RequestBody TimeRequest timeRequest) {
-		return this.timeService.createTime(timeRequest) ;
+	@PostMapping("/times")
+	public ResponseEntity<Time> createTime(@RequestBody TimeRequest timeRequest) {
+		return new ResponseEntity<Time>(this.timeService.createTime(timeRequest),HttpStatus.CREATED) ;
 	}
 	
-	@GetMapping("/time/{userId}")
-	public List<Time> index(@PathVariable Long userId ) {
-		
-		return timeService.getTimeContent(userId);
-	}
+	@GetMapping("/times/{userId}")
+	public ResponseEntity<Collection<Time>> index(@PathVariable Long userId ) {
+		return new ResponseEntity<Collection<Time>>(timeService.getTimeContent(userId),HttpStatus.OK);
+
 	
-	@GetMapping("/time/{userId}/export/pdf")
+	@GetMapping("/times/{userId}/export/pdf")
 	public void exportToPDF(HttpServletResponse response, @PathVariable Long userId ) throws DocumentException, IOException {
 	        response.setContentType("application/pdf");
 	        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -77,7 +78,7 @@ public class TimeController {
 	
 	
 
-	@PostMapping("/time/user/{userId}")
+	@GetMapping("/times/{userId}")
 	Collection<Time> findUserTimesForManager(@PathVariable Long userId) {
 		return this.timeService.findTimesOfUser(userId) ;
 	}
