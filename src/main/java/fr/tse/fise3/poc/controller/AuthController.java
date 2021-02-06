@@ -32,9 +32,8 @@ public class AuthController {
 	private final RoleRepository role;
 
 	@PostMapping("/signup")
-	public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
-		authService.signup(registerRequest);
-		return new ResponseEntity<String>("User has been saved successfully \n" , HttpStatus.OK);
+	public ResponseEntity<User> signup(@RequestBody RegisterRequest registerRequest) {
+		return new ResponseEntity<User>(authService.signup(registerRequest), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/accountVerification/{token}")
@@ -49,9 +48,13 @@ public class AuthController {
 	}
 	
 
+	@GetMapping("/info")
+	public ResponseEntity<User> loggedInUser() {
+		return new ResponseEntity<User>(authService.getLoggedInUserInfo(),HttpStatus.OK);
+	}
 	@GetMapping("/test")
 	public String index() {
-		return "index \n"+ role.findAll().get(0);
+		return "test";
 	}
 	
 	

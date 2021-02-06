@@ -3,6 +3,8 @@ package fr.tse.fise3.poc.controller;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,19 +28,18 @@ public class TimeController {
 	private TimeService timeService;
 	
 	@GetMapping("/times")
-	Collection<Time> findAllProjects(){
-		return this.timeService.findAllTimes();
+	public ResponseEntity<Collection<Time>> findAllProjects(){
+		return new ResponseEntity<Collection<Time>>(this.timeService.findAllTimes(),HttpStatus.OK);
 	}
 	
 	@PostMapping("/time/create")
-	Time createTask(@RequestBody TimeRequest timeRequest) {
-		return this.timeService.createTime(timeRequest) ;
+	public ResponseEntity<Time> createTask(@RequestBody TimeRequest timeRequest) {
+		return new ResponseEntity<Time>(this.timeService.createTime(timeRequest),HttpStatus.CREATED) ;
 	}
 	
 	@GetMapping("/time/{userId}")
-	public Time index(@PathVariable Long userId ) {
-		
-		return timeService.getTimeContent(userId);
+	public ResponseEntity<Collection<Time>> index(@PathVariable Long userId ) {
+		return new ResponseEntity<Collection<Time>>(timeService.getTimeContent(userId),HttpStatus.OK);
 	}
 
 }
