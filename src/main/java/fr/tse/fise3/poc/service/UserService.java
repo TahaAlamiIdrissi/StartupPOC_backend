@@ -24,5 +24,7 @@ public interface UserService {
   
 	public User changeAffectationForUser(ChangeUserRequest changeUserRequest);
 	
+	public User findUser(Long idUser);
+	
 
 }

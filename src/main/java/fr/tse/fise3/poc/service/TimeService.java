@@ -1,6 +1,7 @@
 package fr.tse.fise3.poc.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class TimeService {
 		
 	}
 	
-	public Time getTimeContent(Long userId) {
+	public List<Time> getTimeContent(Long userId) {
 		// TODO Auto-generated method stub
 		return timeRepository.findByUserUserId(userId);
 	}
