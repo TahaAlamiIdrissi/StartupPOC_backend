@@ -12,8 +12,6 @@ import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.service.ProjectService;
-import fr.tse.fise3.poc.service.UserService;
-
 
 @Service
 public class ProjectServiceImpl implements ProjectService {

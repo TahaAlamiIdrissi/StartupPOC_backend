@@ -1,6 +1,7 @@
 package fr.tse.fise3.poc.service.impl;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,6 @@ import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
 import fr.tse.fise3.poc.service.MailService;
 import fr.tse.fise3.poc.service.ProjectService;
 import fr.tse.fise3.poc.service.UserService;
-
-
 
 
 @Service
@@ -120,10 +119,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-	@Override
-	public List<User> findUsersofManager(Long idUser) {
-		return userRepository.findByManagerUserId(idUser);
-	}
+//	@Override
+//	public List<User> findUsersofManager(Long idUser) {
+//		return userRepository.findByManagerUserId(idUser);
+//	}
 
 
 	@Override
@@ -185,6 +184,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEnabled(true);
 	}
 
+	
+	@Override
+	public List<User> findUsersofManager(Long idManager) {
+		return userRepository.findByManagerUserId(idManager);
+	}
 	
 	
 

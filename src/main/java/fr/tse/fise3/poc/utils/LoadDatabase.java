@@ -58,8 +58,8 @@ public class LoadDatabase {
 	
 	private void initTimeTable(TimeRepository timeRepository) {
 		Time time = new Time();
-		time.setDate_start(LocalDateTime.now());
-		time.setDate_end(LocalDateTime.now());
+		time.setDateStart(LocalDateTime.now());
+		time.setDateEnd(LocalDateTime.now());
 		timeRepository.save(time);
 	}
 	

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import fr.tse.fise3.poc.dto.AuthenticationResponse;
 import fr.tse.fise3.poc.dto.LoginRequest;
 import fr.tse.fise3.poc.dto.RegisterRequest;
 import fr.tse.fise3.poc.exception.AchieveNotFoundException;
+import fr.tse.fise3.poc.repository.RoleRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
 import fr.tse.fise3.poc.security.JwtProvider;
@@ -33,17 +35,21 @@ public class AuthService {
 	
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final RoleRepository roleRepository;
 	private final VerificationTokenRepositoy verificationTokenRepositoy;
 	private final MailService mailService;
 	private final AuthenticationManager authenticationManager;
 	private final JwtProvider jwtProvider;
 	
-	public void signup(RegisterRequest registerRequest) {
+	public User signup(RegisterRequest registerRequest) {
 		// TODO Auto-generated method stub
 		User user = new User();
 		user.setEmail(registerRequest.getEmail());
 		user.setUsername(registerRequest.getUsername());
 		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+		user.setFirstname(registerRequest.getFirstname());
+		user.setLastname(registerRequest.getLastname());
+		user.setRole(roleRepository.findById(registerRequest.getRoleId()).get());
 		user.setEnabled(false);
 		user.setCreatedAt(Instant.now());
 		userRepository.save(user);
@@ -53,7 +59,7 @@ public class AuthService {
                 user.getEmail(), "Thank you for signing up to <strong>Achieve</strong>, " +
                 "please click on the below url to activate your account : " +
                 "http://localhost:8080/api/auth/accountVerification/" + token));
-		
+		return user;
 	}
 
 	private String generateVerificationToken(User user) {
@@ -82,6 +88,13 @@ public class AuthService {
 		SecurityContextHolder.getContext().setAuthentication(authenticate);
 		String jwtToken = jwtProvider.generateToken(authenticate);
 		return new AuthenticationResponse(jwtToken,loginRequest.getUsername());
+	}
+	
+	public User getLoggedInUserInfo() {
+		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+		
+		return  userRepository.findByUsername(currentUserDetails.getUsername()).get();
 	}
 
 }

@@ -48,8 +48,8 @@ public class UserReportExporter {
 	    private void writeTableData(PdfPTable table) {
 	        for (Time time : timesOfUser) {
 	        	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
-	            table.addCell(String.valueOf(time.getDate_start().format(formatter)));
-	            table.addCell(String.valueOf(time.getDate_end().format(formatter)));
+	            table.addCell(String.valueOf(time.getDateStart().format(formatter)));
+	            table.addCell(String.valueOf(time.getDateEnd().format(formatter)));
 	            table.addCell(time.getProject().getTitle());
 	        }
 	    }

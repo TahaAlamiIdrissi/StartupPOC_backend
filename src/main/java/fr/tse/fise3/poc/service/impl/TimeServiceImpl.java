@@ -1,5 +1,6 @@
 package fr.tse.fise3.poc.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,6 @@ import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.TimeRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.service.TimeService;
-import fr.tse.fise3.poc.service.UserService;
 
 
 @Service
@@ -32,15 +32,6 @@ public class TimeServiceImpl  implements TimeService{
 	@Autowired	
 	private TimeRepository timeRepository;
 	
-	
-	// Find all time affections on database
-	@Transactional(readOnly = true)
-	public Collection<Time> findAllTimes() {
-		
-		return this.timeRepository.findAll();
-	}
-	
-
 	
 	// Find all time affections of a user 
 	@Transactional(readOnly = true)
@@ -62,21 +53,34 @@ public class TimeServiceImpl  implements TimeService{
 		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
 		Time time = new Time();
 		
-		time.setDate_start(timeRequest.getDateStart());
-		time.setDate_end(timeRequest.getDateEnd());
+		time.setDateStart(timeRequest.getDateStart());
+		time.setDateEnd(timeRequest.getDateEnd());
 		time.setUser(currentUser);
 		
 		Project project = this.projectRepository.findById(timeRequest.getProjectId()).orElse(null);
-		
 		time.setProject(project);
 		
 		return this.timeRepository.save(time);
 		
 	}
-	
-	public List<Time> getTimeContent(Long userId) {
+	@Override
+	public Collection<Time> getTimeContent(Long userId) {
 		// TODO Auto-generated method stub
-		return timeRepository.findByUserUserId(userId);
+		return timeRepository.findAllByUserUserIdAndDateStart(userId,LocalDateTime.now());
 	}
+
+	// Find all times of a user
+	@Override
+	public List<Time> findTimesOfUser(Long idUser) {
+		return this.timeRepository.findByUserUserId(idUser);
+  }
+	
+
+	@Override
+	public Collection<Time> findAllTimes() {
+		// TODO Auto-generated method stub
+		return null;
+	}	
+
 	
 }

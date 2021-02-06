@@ -33,8 +33,8 @@ public class Time {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private LocalDateTime date_start;
-	private LocalDateTime date_end;
+	private LocalDateTime dateStart;
+	private LocalDateTime dateEnd;
 	
 	// many to one vers users
 	@ManyToOne
