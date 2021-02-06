@@ -24,7 +24,13 @@ public interface UserService {
   
 	public User changeAffectationForUser(ChangeUserRequest changeUserRequest);
 	
+	
 	public User findUser(Long idUser);
+	
+	
+	public User disableUser(Long idUser) ;
+	
+	public List<User> findActiveUsers();
 	
 
 }

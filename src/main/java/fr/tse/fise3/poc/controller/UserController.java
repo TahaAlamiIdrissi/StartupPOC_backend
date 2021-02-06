@@ -59,7 +59,8 @@ public class UserController {
 
 	@GetMapping("/users")
 	public Iterable<User> index() {
-		return userRepository.findAll();
+		return userService.findActiveUsers();
 	}
+	
 
 }

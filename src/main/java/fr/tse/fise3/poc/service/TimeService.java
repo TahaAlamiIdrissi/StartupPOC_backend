@@ -19,64 +19,15 @@ import fr.tse.fise3.poc.repository.TimeRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
 
 
-@Service
-public class TimeService {
+public interface TimeService {
+	
+	public Collection<Time> findAllTimes();
+	
+	public Optional<Time> findTimesById(Long id);
+	
+	public Time createTime(TimeRequest timeRequest);
+	
+	public List<Time> getTimeContent(Long userId); 
 
-
-	@Autowired
-	private UserRepository userRepository;	
-	
-	@Autowired	
-	private ProjectRepository projectRepository;
-	
-	@Autowired	
-	private TimeRepository timeRepository;
-	
-	
-	// Find all time affections on database
-	@Transactional(readOnly = true)
-	public Collection<Time> findAllTimes() {
-		
-		return this.timeRepository.findAll();
-	}
-	
-
-	
-	// Find all time affections of a user 
-	@Transactional(readOnly = true)
-	public Optional<Time> findTimesById(Long id) {
-		
-		return this.timeRepository.findById(id);
-		
-	}
-	
-	// Employees can affect time to a certain project on dashboard
-	@Transactional
-	public Time createTime(TimeRequest timeRequest) {
-		
-		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder
-													.getContext()
-													.getAuthentication()
-									        .getPrincipal();
-		
-		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
-		Time time = new Time();
-		
-		time.setDate_start(timeRequest.getDateStart());
-		time.setDate_end(timeRequest.getDateEnd());
-		time.setUser(currentUser);
-		
-		Project project = this.projectRepository.findById(timeRequest.getProjectId()).orElse(null);
-		
-		time.setProject(project);
-		
-		return this.timeRepository.save(time);
-		
-	}
-	
-	public List<Time> getTimeContent(Long userId) {
-		// TODO Auto-generated method stub
-		return timeRepository.findByUserUserId(userId);
-	}
 	
 }

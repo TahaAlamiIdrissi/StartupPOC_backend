@@ -7,9 +7,11 @@ import fr.tse.fise3.poc.domain.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-	Optional<User> findByUsername(String username);	
+	public Optional<User> findByUsername(String username);	
 	
-	List<User> findByManagerUserId(Long managerId);
+	public List<User> findByManagerUserId(Long managerId);
+	
+	public List<User> findByEnabled(boolean enabled);
 	
 
 	

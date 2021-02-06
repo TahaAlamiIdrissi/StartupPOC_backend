@@ -1,4 +1,4 @@
-package fr.tse.fise3.poc.service;
+package fr.tse.fise3.poc.service.impl;
 
 import java.time.Instant;
 import java.util.List;
@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import fr.tse.fise3.poc.domain.NotificationEmail;
+import fr.tse.fise3.poc.domain.Project;
 import fr.tse.fise3.poc.domain.Role;
 import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.domain.User;
@@ -21,6 +22,9 @@ import fr.tse.fise3.poc.repository.RoleRepository;
 import fr.tse.fise3.poc.repository.TimeRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
+import fr.tse.fise3.poc.service.MailService;
+import fr.tse.fise3.poc.service.ProjectService;
+import fr.tse.fise3.poc.service.UserService;
 
 
 
@@ -49,6 +53,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private ProjectService projectService;
 
 	
 	public User createUser(CreateUserRequest createUserRequest) {
@@ -152,6 +159,30 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findUser(Long idUser) {
 		return userRepository.findById(idUser).get();
+	}
+
+	//disable user account
+	@Override
+	public User disableUser(Long idUser) {
+		User user = userRepository.findById(idUser).get();
+		if (user.getRole().getId().equals(2L)) {
+		      
+			List <User> usersOfManager = findUsersofManager(user.getUserId());
+			for (User u :usersOfManager) {
+				u.setManager(null);
+				userRepository.save(u);				
+			}						
+		}
+		user.setEnabled(false);
+		return userRepository.save(user);		
+				
+	}
+
+	//return all users with active account
+	@Override
+	public List<User> findActiveUsers() {
+		// TODO Auto-generated method stub
+		return userRepository.findByEnabled(true);
 	}
 
 	

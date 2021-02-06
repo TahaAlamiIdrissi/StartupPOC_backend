@@ -15,10 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Slf4j
 public class MailService {
+	
 	private final static String FROM="taha.alami@achieve.io";
 	private final JavaMailSender mailSender;
 	
 	@Async
+	public
 	void sendMail(NotificationEmail notificationEmail) {
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
