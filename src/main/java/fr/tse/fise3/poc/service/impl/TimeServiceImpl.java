@@ -79,7 +79,7 @@ public class TimeServiceImpl  implements TimeService{
 	@Override
 	public Collection<Time> findAllTimes() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.timeRepository.findAll();
 	}	
 
 	

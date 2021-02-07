@@ -189,6 +189,51 @@ public class UserServiceImpl implements UserService {
 	public List<User> findUsersofManager(Long idManager) {
 		return userRepository.findAllByManagerUserId(idManager);
 	}
+
+	@Override
+	public User editUser(User user_) {
+		System.out.println(user_.getEmail());
+		System.out.println(user_.getFirstname());
+		System.out.println(user_.getRole().getLabel());
+		User user = userRepository.findById(user_.getUserId()).get();
+		Role newRole = roleRepository.findById(user_.getRole().getId()).get();
+		User manager = userRepository.findById(user_.getManager().getUserId()).get();
+		
+		//changing infos
+		user.setFirstname(user_.getFirstname());
+		user.setLastname(user_.getLastname());
+		user.setEmail(user_.getEmail());
+		user.setUsername(user_.getUsername());
+		
+		
+		// changing role
+		if (user.getRole().getId().equals(2L) && !newRole.getId().equals(2L)) {
+		      
+			List <User> usersOfManager = findUsersofManager(user.getUserId());
+			for (User u :usersOfManager) {
+				u.setManager(null);
+				userRepository.save(u);				
+			}						
+		}
+    
+		//employee -> manager or employee -> admin
+		if (user.getRole().getId().equals(1L) && (newRole.getId().equals(2L) || newRole.getId().equals(3L))) {
+			user.setManager(null);
+			
+		}
+	
+		user.setRole(newRole);
+		
+		
+		//changing affectation
+		if (manager!=null)
+		{if(user.getRole().getId().equals(1L) && manager.getRole().getId().equals(2L)) {
+			user.setManager(manager);
+		}}
+		
+		
+		return userRepository.save(user);	
+	}
 	
 	
 
