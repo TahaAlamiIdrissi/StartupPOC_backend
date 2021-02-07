@@ -1,4 +1,4 @@
-package fr.tse.fise3.poc.service;
+package fr.tse.fise3.poc.service.impl;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import fr.tse.fise3.poc.domain.NotificationEmail;
+import fr.tse.fise3.poc.domain.Project;
 import fr.tse.fise3.poc.domain.Role;
 import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.domain.User;
@@ -22,6 +23,9 @@ import fr.tse.fise3.poc.repository.RoleRepository;
 import fr.tse.fise3.poc.repository.TimeRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
+import fr.tse.fise3.poc.service.MailService;
+import fr.tse.fise3.poc.service.ProjectService;
+import fr.tse.fise3.poc.service.UserService;
 
 
 @Service
@@ -32,7 +36,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
 	
 	@Autowired
 	private UserRepository userRepository;	
@@ -48,6 +51,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private ProjectService projectService;
 
 	
 	public User createUser(CreateUserRequest createUserRequest) {
@@ -59,6 +65,7 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(createUserRequest.getEmail());
 		user.setFirstname(createUserRequest.getFirstname());
 		user.setLastname(createUserRequest.getLastname());
+		user.setFullname(createUserRequest.getLastname()+" "+createUserRequest.getFirstname());
 		user.setCreatedAt(Instant.now());
 
 		// Set the user's role
@@ -153,10 +160,34 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(idUser).get();
 	}
 
+	//disable user account
+	@Override
+	public User disableUser(Long idUser) {
+		User user = userRepository.findById(idUser).get();
+		if (user.getRole().getId().equals(2L)) {
+		      
+			List <User> usersOfManager = findUsersofManager(user.getUserId());
+			for (User u :usersOfManager) {
+				u.setManager(null);
+				userRepository.save(u);				
+			}						
+		}
+		user.setEnabled(false);
+		return userRepository.save(user);		
+				
+	}
+
+	//return all users with active account
+	@Override
+	public List<User> findActiveUsers() {
+		// TODO Auto-generated method stub
+		return userRepository.findByEnabled(true);
+	}
+
 	
 	@Override
 	public List<User> findUsersofManager(Long idManager) {
-		return userRepository.findByManagerUserId(idManager);
+		return userRepository.findAllByManagerUserId(idManager);
 	}
 	
 	

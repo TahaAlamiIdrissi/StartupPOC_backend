@@ -1,9 +1,9 @@
 /**
  * 
  */
-package fr.tse.fise3.poc.project;
+package fr.tse.fise3.poc.user;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Instant;
@@ -15,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.tse.fise3.poc.domain.User;
+import fr.tse.fise3.poc.dto.ChangeUserRequest;
+import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
 import fr.tse.fise3.poc.service.UserService;
 import fr.tse.fise3.poc.utils.RoleUtils;
@@ -48,5 +50,30 @@ public class UserServiceTest {
 		User userTest = userService.createUser(user);
 		assertEquals("usernameOne", userTest.getUsername());
 	}
-
+	
+	@Test
+	public void testFindUsersofManager() {
+		assertEquals(1, userService.findUsersofManager(2L).size());
+	}
+	
+	
+	@Test
+	public void testChangeUserRole() {
+		ChangeUserRoleRequest c = new ChangeUserRoleRequest();
+		c.setUserId(8L);
+		c.setRoleId(RoleUtils.MANAGER_ID);
+		User u = userService.changeUserRole(c);
+		assertEquals(RoleUtils.MANAGER_ID, u.getRole().getId());
+		
+	}
+	
+	@Test
+	public void testChangeAffectationForUser() {
+		ChangeUserRequest c = new ChangeUserRequest();
+		c.setUserId(1L);
+		c.setManagerId(8L);
+		User u = userService.changeAffectationForUser(c);
+		
+		assertEquals(8, u.getManager().getUserId());
+	}
 }

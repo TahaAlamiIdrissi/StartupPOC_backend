@@ -1,9 +1,5 @@
-/**
- * 
- */
 package fr.tse.fise3.poc.service;
 
-import fr.tse.fise3.poc.domain.Time;
 import java.util.List;
 import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
@@ -20,6 +16,15 @@ public interface UserService {
 	
 	public User changeAffectationForUser(ChangeUserRequest changeUserRequest);
 	
+	
 	public User findUser(Long idUser);
+	
+	
+	public User disableUser(Long idUser) ;
+	
+	
+	public List<User> findActiveUsers();
+	
+	
 
 }
