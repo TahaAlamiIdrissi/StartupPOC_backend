@@ -38,6 +38,7 @@ public class User {
 	
 	private String firstname;
 	private String lastname;
+	private String fullname;
 	private Instant createdAt;
 	private boolean enabled;
 	

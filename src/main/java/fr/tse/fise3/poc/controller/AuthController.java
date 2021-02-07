@@ -2,8 +2,6 @@ package fr.tse.fise3.poc.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.AuthenticationResponse;
 import fr.tse.fise3.poc.dto.LoginRequest;
 import fr.tse.fise3.poc.dto.RegisterRequest;
-import fr.tse.fise3.poc.repository.RoleRepository;
 import fr.tse.fise3.poc.service.AuthService;
 import lombok.AllArgsConstructor;
 
@@ -29,7 +25,6 @@ public class AuthController {
 	
 	
 	private final AuthService authService;
-	private final RoleRepository role;
 
 	@PostMapping("/signup")
 	public ResponseEntity<User> signup(@RequestBody RegisterRequest registerRequest) {
@@ -47,10 +42,9 @@ public class AuthController {
 		return authService.login(loginRequest);
 	}
 	
-
-	@GetMapping("/info")
-	public ResponseEntity loggedInUser() {
-		return new ResponseEntity(authService.getLoggedInUserInfo(),HttpStatus.OK);
+	@GetMapping("/info/{username}")
+	public ResponseEntity<User> loggedInUser(@PathVariable String username) {
+		return new ResponseEntity<User>(authService.getLoggedInUserInfo(username),HttpStatus.OK);
 	}
 	@GetMapping("/test")
 	public String index() {

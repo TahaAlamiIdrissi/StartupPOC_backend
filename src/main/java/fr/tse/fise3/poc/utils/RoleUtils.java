@@ -1,12 +1,6 @@
-/**
- * 
- */
 package fr.tse.fise3.poc.utils;
 
-/**
- * @author 
- 
- */
+
 public class RoleUtils {
 	
 	// This is useful so that we could have access to the employees,admins and managers without 

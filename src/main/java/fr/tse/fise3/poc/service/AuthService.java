@@ -9,17 +9,16 @@ import fr.tse.fise3.poc.dto.RegisterRequest;
 public interface AuthService {
 	
 	
-	public User signup(RegisterRequest registerRequest);
+	public User signup(RegisterRequest registerRequest) ;
 	
-
 	public String generateVerificationToken(User user);
 	
 	
 	public void accountVerification(String token);
 	
-
+	
 	public AuthenticationResponse login(LoginRequest loginRequest);
 	
 	
-	public User getLoggedInUserInfo();
+	public User getLoggedInUserInfo(String username);
 }

@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import fr.tse.fise3.poc.domain.NotificationEmail;
@@ -58,6 +57,7 @@ public class AuthServiceImpl implements AuthService{
 		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 		user.setFirstname(registerRequest.getFirstname());
 		user.setLastname(registerRequest.getLastname());
+		user.setFullname(registerRequest.getLastname()+" "+registerRequest.getFirstname());
 		user.setRole(roleRepository.findById(registerRequest.getRoleId()).get());
 		user.setEnabled(false);
 		user.setCreatedAt(Instant.now());
@@ -82,6 +82,7 @@ public class AuthServiceImpl implements AuthService{
 		return token;
 	}
 	
+	
 	public void accountVerification(String token) {
 		Optional<VerificationToken> isToken = verificationTokenRepositoy.findByToken(token);
 		isToken.orElseThrow(()-> new AchieveNotFoundException("Token Not found Exception"));
@@ -99,11 +100,11 @@ public class AuthServiceImpl implements AuthService{
 		return new AuthenticationResponse(jwtToken,loginRequest.getUsername());
 	}
 	
-	public User getLoggedInUserInfo() {
-		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
+	public User getLoggedInUserInfo(String username) {
+//		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
+//                .getPrincipal();
 		
-		return  userRepository.findByUsername(currentUserDetails.getUsername()).get();
+		return  userRepository.findByUsername(username).get();
 	}
 
 

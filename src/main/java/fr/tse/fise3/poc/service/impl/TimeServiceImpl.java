@@ -40,33 +40,33 @@ public class TimeServiceImpl  implements TimeService{
 		return this.timeRepository.findById(id);
 		
 	}
-	
 	// Employees can affect time to a certain project on dashboard
-	@Transactional
-	public Time createTime(TimeRequest timeRequest) {
-		
-		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder
-													.getContext()
-													.getAuthentication()
-									        .getPrincipal();
-		
-		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
-		Time time = new Time();
-		
-		time.setDateStart(timeRequest.getDateStart());
-		time.setDateEnd(timeRequest.getDateEnd());
-		time.setUser(currentUser);
-		
-		Project project = this.projectRepository.findById(timeRequest.getProjectId()).orElse(null);
-		time.setProject(project);
-		
-		return this.timeRepository.save(time);
-		
-	}
-	@Override
+		@Transactional
+		public Time createTime(TimeRequest timeRequest) {
+			
+			UserDetails currentUserDetails =(UserDetails) SecurityContextHolder
+														.getContext()
+														.getAuthentication()
+										        .getPrincipal();
+			
+			User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
+			Time time = new Time();
+			
+			time.setDateStart(timeRequest.getDateStart());
+			time.setCurrentMonth(timeRequest.getDateStart().getMonth());
+			time.setDateEnd(timeRequest.getDateEnd());
+			time.setUser(currentUser);
+			
+			Project project = this.projectRepository.findById(timeRequest.getProjectId()).orElse(null);
+			time.setProject(project);
+			
+			return this.timeRepository.save(time);
+			
+		}
+
 	public Collection<Time> getTimeContent(Long userId) {
 		// TODO Auto-generated method stub
-		return timeRepository.findAllByUserUserIdAndDateStart(userId,LocalDateTime.now());
+		return timeRepository.findAllByUserUserIdAndCurrentMonth(userId,LocalDateTime.now().getMonth());
 	}
 
 	// Find all times of a user
