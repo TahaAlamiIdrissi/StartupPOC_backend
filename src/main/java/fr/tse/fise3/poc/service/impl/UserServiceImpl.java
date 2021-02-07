@@ -1,4 +1,4 @@
-package fr.tse.fise3.poc.service;
+package fr.tse.fise3.poc.service.impl;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import fr.tse.fise3.poc.domain.NotificationEmail;
+import fr.tse.fise3.poc.domain.Project;
 import fr.tse.fise3.poc.domain.Role;
 import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.domain.User;
@@ -22,6 +23,9 @@ import fr.tse.fise3.poc.repository.RoleRepository;
 import fr.tse.fise3.poc.repository.TimeRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
+import fr.tse.fise3.poc.service.MailService;
+import fr.tse.fise3.poc.service.ProjectService;
+import fr.tse.fise3.poc.service.UserService;
 
 
 @Service
@@ -32,7 +36,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
 	
 	@Autowired
 	private UserRepository userRepository;	
@@ -48,6 +51,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private ProjectService projectService;
 
 	
 	public User createUser(CreateUserRequest createUserRequest) {
@@ -160,10 +166,79 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(idUser).get();
 	}
 
+	//disable user account
+	@Override
+	public User disableUser(Long idUser) {
+		User user = userRepository.findById(idUser).get();
+		if (user.getRole().getId().equals(2L)) {
+		      
+			List <User> usersOfManager = findUsersofManager(user.getUserId());
+			for (User u :usersOfManager) {
+				u.setManager(null);
+				userRepository.save(u);				
+			}						
+		}
+		user.setEnabled(false);
+		return userRepository.save(user);		
+				
+	}
+
+	//return all users with active account
+	@Override
+	public List<User> findActiveUsers() {
+		// TODO Auto-generated method stub
+		return userRepository.findByEnabled(true);
+	}
+
 	
 	@Override
 	public List<User> findUsersofManager(Long idManager) {
 		return userRepository.findAllByManagerUserId(idManager);
+	}
+
+	@Override
+	public User editUser(User user_) {
+		System.out.println(user_.getEmail());
+		System.out.println(user_.getFirstname());
+		System.out.println(user_.getRole().getLabel());
+		User user = userRepository.findById(user_.getUserId()).get();
+		Role newRole = roleRepository.findById(user_.getRole().getId()).get();
+		User manager = userRepository.findById(user_.getManager().getUserId()).get();
+		
+		//changing infos
+		user.setFirstname(user_.getFirstname());
+		user.setLastname(user_.getLastname());
+		user.setEmail(user_.getEmail());
+		user.setUsername(user_.getUsername());
+		
+		
+		// changing role
+		if (user.getRole().getId().equals(2L) && !newRole.getId().equals(2L)) {
+		      
+			List <User> usersOfManager = findUsersofManager(user.getUserId());
+			for (User u :usersOfManager) {
+				u.setManager(null);
+				userRepository.save(u);				
+			}						
+		}
+    
+		//employee -> manager or employee -> admin
+		if (user.getRole().getId().equals(1L) && (newRole.getId().equals(2L) || newRole.getId().equals(3L))) {
+			user.setManager(null);
+			
+		}
+	
+		user.setRole(newRole);
+		
+		
+		//changing affectation
+		if (manager!=null)
+		{if(user.getRole().getId().equals(1L) && manager.getRole().getId().equals(2L)) {
+			user.setManager(manager);
+		}}
+		
+		
+		return userRepository.save(user);	
 	}
 	
 	

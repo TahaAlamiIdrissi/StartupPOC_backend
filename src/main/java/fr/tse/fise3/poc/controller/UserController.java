@@ -1,8 +1,5 @@
 package fr.tse.fise3.poc.controller;
 
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.service.TimeService;
-import fr.tse.fise3.poc.dto.CreateUserRequest;
 import fr.tse.fise3.poc.service.UserService;
 
 @RestController
@@ -33,7 +28,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-  @Autowired
+    @Autowired
 	private UserRepository userRepository;
   
   	@Autowired
@@ -59,7 +54,23 @@ public class UserController {
 
 	@GetMapping("/users")
 	public Iterable<User> index() {
-		return userRepository.findAll();
+		return userService.findActiveUsers();
 	}
+
+	@PostMapping("/users/edit")
+	public ResponseEntity<User> editUser(@RequestBody User user){
+		return new ResponseEntity<User>(userService.editUser(user),HttpStatus.OK);
+	}
+	
+	@GetMapping("/users/disable/{idUser}")
+	public ResponseEntity<User> disableUser(@PathVariable Long idUser){
+		return new ResponseEntity<User>(userService.disableUser(idUser),HttpStatus.OK);
+	}
+	
+	@GetMapping("/users/{idUser}")
+	public ResponseEntity<User> getUserInfos(@PathVariable Long idUser){
+		return new ResponseEntity<User>(userService.findUser(idUser),HttpStatus.OK);
+	}
+	
 
 }
