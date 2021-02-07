@@ -21,20 +21,20 @@ import fr.tse.fise3.poc.service.ProjectService;
 @Configuration
 public class LoadDatabase {
 
-	@Bean
-	@Profile("test")
-	CommandLineRunner initTestData(ProjectRepository projectRepository, ProjectService projectService) {
-		return new CommandLineRunner() {
-
-			public void run(String... args) throws Exception {
-                Project prj1 = new Project();
-                prj1.setTitle("Project Start-up POC");
-                prj1.setDescription("Fise 3 Springboot Angular project");
-                projectRepository.save(prj1);  
-			}	
-		};
-	}
-	
+//	@Bean
+//	@Profile("test")
+//	CommandLineRunner initTestData(ProjectRepository projectRepository, ProjectService projectService) {
+//		return new CommandLineRunner() {
+//
+//			public void run(String... args) throws Exception {
+//                Project prj1 = new Project();
+//                prj1.setTitle("Project Start-up POC");
+//                prj1.setDescription("Fise 3 Springboot Angular project");
+//                projectRepository.save(prj1);  
+//			}	
+//		};
+//	}
+//	
 	@Bean
 	CommandLineRunner initData(ProjectRepository projectRepository, RoleRepository roleRepository,
 			UserRepository userRepository, TimeRepository timeRepository) {
@@ -43,8 +43,8 @@ public class LoadDatabase {
 			public void run(String... args) throws Exception {
                initRoleTable(roleRepository);
                //initUserTable(userRepository);
-               initProjectTable(projectRepository);
-               initTimeTable(timeRepository);
+//               initProjectTable(projectRepository);
+//               initTimeTable(timeRepository);
 			}	
 		};
 	}
