@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,9 +57,14 @@ public class UserController {
 		return userService.findActiveUsers();
 	}
 	
-	@PostMapping("/users/disable")
-	public ResponseEntity<User> disableUser(@RequestBody Long idUser){
+	@GetMapping("/users/disable/{idUser}")
+	public ResponseEntity<User> disableUser(@PathVariable Long idUser){
 		return new ResponseEntity<User>(userService.disableUser(idUser),HttpStatus.OK);
+	}
+	
+	@GetMapping("/users/{idUser}")
+	public ResponseEntity<User> getUserInfos(@PathVariable Long idUser){
+		return new ResponseEntity<User>(userService.findUser(idUser),HttpStatus.OK);
 	}
 	
 

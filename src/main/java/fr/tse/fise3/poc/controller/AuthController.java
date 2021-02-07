@@ -49,8 +49,8 @@ public class AuthController {
 	
 
 	@GetMapping("/info")
-	public ResponseEntity<User> loggedInUser() {
-		return new ResponseEntity<User>(authService.getLoggedInUserInfo(),HttpStatus.OK);
+	public ResponseEntity loggedInUser() {
+		return new ResponseEntity(authService.getLoggedInUserInfo(),HttpStatus.OK);
 	}
 	@GetMapping("/test")
 	public String index() {
