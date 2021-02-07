@@ -74,6 +74,12 @@ public class UserServiceImpl implements UserService {
 		if(currentUser.getRole().getLabel().equals("MANAGER"))
 			user.setManager(currentUser);
 		
+		if(currentUser.getRole().getLabel().equals("ADMIN")) {
+			User manager = userRepository.findById(createUserRequest.getManagerId()).get();
+			user.setManager(manager);
+		}
+			
+		
 		User savedUser = userRepository.save(user);
 		String token = generateVerificationToken(user);
 		mailService.sendMail(new NotificationEmail("Please Activate your Account",
