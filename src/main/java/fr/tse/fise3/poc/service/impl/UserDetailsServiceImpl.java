@@ -1,4 +1,4 @@
-package fr.tse.fise3.poc.service;
+package fr.tse.fise3.poc.service.impl;
 
 import java.util.Collection;
 import java.util.Collections;
