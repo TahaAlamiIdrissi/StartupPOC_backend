@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(createUserRequest.getEmail());
 		user.setFirstname(createUserRequest.getFirstname());
 		user.setLastname(createUserRequest.getLastname());
+		user.setFullname(createUserRequest.getLastname()+" "+createUserRequest.getFirstname());
 		user.setCreatedAt(Instant.now());
 
 		// Set the user's role
@@ -156,7 +157,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> findUsersofManager(Long idManager) {
-		return userRepository.findByManagerUserId(idManager);
+		return userRepository.findAllByManagerUserId(idManager);
 	}
 	
 	

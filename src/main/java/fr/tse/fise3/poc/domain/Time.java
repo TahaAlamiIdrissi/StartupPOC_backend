@@ -4,6 +4,7 @@
 package fr.tse.fise3.poc.domain;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,7 @@ public class Time {
 	private Long id;
 	private LocalDateTime dateStart;
 	private LocalDateTime dateEnd;
-	
+	private Month currentMonth;
 	// many to one vers users
 	@ManyToOne
 	private User user;

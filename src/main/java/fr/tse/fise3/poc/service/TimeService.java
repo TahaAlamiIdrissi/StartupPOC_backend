@@ -61,6 +61,7 @@ public class TimeService {
 		Time time = new Time();
 		
 		time.setDateStart(timeRequest.getDateStart());
+		time.setCurrentMonth(timeRequest.getDateStart().getMonth());
 		time.setDateEnd(timeRequest.getDateEnd());
 		time.setUser(currentUser);
 		
@@ -73,7 +74,7 @@ public class TimeService {
 
 	public Collection<Time> getTimeContent(Long userId) {
 		// TODO Auto-generated method stub
-		return timeRepository.findAllByUserUserIdAndDateStart(userId,LocalDateTime.now());
+		return timeRepository.findAllByUserUserIdAndCurrentMonth(userId,LocalDateTime.now().getMonth());
 	}
 
 	// Find all times of a user

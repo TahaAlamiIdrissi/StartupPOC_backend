@@ -49,6 +49,7 @@ public class AuthService {
 		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 		user.setFirstname(registerRequest.getFirstname());
 		user.setLastname(registerRequest.getLastname());
+		user.setFullname(registerRequest.getLastname()+" "+registerRequest.getFirstname());
 		user.setRole(roleRepository.findById(registerRequest.getRoleId()).get());
 		user.setEnabled(false);
 		user.setCreatedAt(Instant.now());
@@ -90,11 +91,11 @@ public class AuthService {
 		return new AuthenticationResponse(jwtToken,loginRequest.getUsername());
 	}
 	
-	public User getLoggedInUserInfo() {
-		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
+	public User getLoggedInUserInfo(String username) {
+//		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
+//                .getPrincipal();
 		
-		return  userRepository.findByUsername(currentUserDetails.getUsername()).get();
+		return  userRepository.findByUsername(username).get();
 	}
 
 }
