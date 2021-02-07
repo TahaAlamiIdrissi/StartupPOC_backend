@@ -26,5 +26,8 @@ public interface UserService {
 	public List<User> findActiveUsers();
 	
 	
+	public User editUser(User user);
+	
+	
 
 }

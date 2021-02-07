@@ -28,7 +28,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-  @Autowired
+    @Autowired
 	private UserRepository userRepository;
   
   	@Autowired
@@ -55,6 +55,11 @@ public class UserController {
 	@GetMapping("/users")
 	public Iterable<User> index() {
 		return userService.findActiveUsers();
+	}
+
+	@PostMapping("/users/edit")
+	public ResponseEntity<User> editUser(@RequestBody User user){
+		return new ResponseEntity<User>(userService.editUser(user),HttpStatus.OK);
 	}
 	
 	@GetMapping("/users/disable/{idUser}")
