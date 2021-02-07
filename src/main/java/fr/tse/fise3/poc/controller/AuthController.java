@@ -48,9 +48,9 @@ public class AuthController {
 	}
 	
 
-	@GetMapping("/info")
-	public ResponseEntity<User> loggedInUser() {
-		return new ResponseEntity<User>(authService.getLoggedInUserInfo(),HttpStatus.OK);
+	@GetMapping("/info/{username}")
+	public ResponseEntity<User> loggedInUser(@PathVariable String username) {
+		return new ResponseEntity<User>(authService.getLoggedInUserInfo(username),HttpStatus.OK);
 	}
 	@GetMapping("/test")
 	public String index() {
