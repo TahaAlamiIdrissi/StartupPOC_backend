@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 	private ProjectService projectService;
 
 	
-	public User createUser(CreateUserRequest createUserRequest) {
+	public User createUser(CreateUserRequest createUserRequest,Long idUser) {
 
 		// save data's coming from inputs
 		User user = new User();
@@ -73,12 +73,19 @@ public class UserServiceImpl implements UserService {
 		user.setRole(role);
 		
 		// if this ( MANAGER ) ROLE <= EMPLOYEE ( COMMING FROM the client side)
-		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
+		//UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
+          //      .getPrincipal();
 		
-		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
+		User currentUser = userRepository.findById(idUser).get();
 		if(currentUser.getRole().getLabel().equals("MANAGER"))
 			user.setManager(currentUser);
+		
+		if(currentUser.getRole().getLabel().equals("ADMIN")) {
+			if(createUserRequest.getManagerId()!=null)
+			{User manager = userRepository.findById(createUserRequest.getManagerId()).get();
+			user.setManager(manager);}
+		}
+			
 		
 		User savedUser = userRepository.save(user);
 		String token = generateVerificationToken(user);
@@ -157,6 +164,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findUser(Long idUser) {
+		
 		return userRepository.findById(idUser).get();
 	}
 
@@ -188,6 +196,55 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findUsersofManager(Long idManager) {
 		return userRepository.findAllByManagerUserId(idManager);
+	}
+
+	@Override
+	public User editUser(User user_) {
+		System.out.println(user_.getEmail());
+		System.out.println(user_.getFirstname());
+		System.out.println(user_.getRole().getLabel());
+		System.out.println("*************");
+		System.out.println(user_.getRole().getId());
+		System.out.println("**************");
+		User user = userRepository.findById(user_.getUserId()).get();
+		Role newRole = roleRepository.findById(user_.getRole().getId()).get();
+	
+		
+		//changing infos
+		user.setFirstname(user_.getFirstname());
+		user.setLastname(user_.getLastname());
+		user.setEmail(user_.getEmail());
+		user.setUsername(user_.getUsername());
+		
+		
+		// changing role
+		if (user.getRole().getId().equals(2L) && !newRole.getId().equals(2L)) {
+		      
+			List <User> usersOfManager = findUsersofManager(user.getUserId());
+			for (User u :usersOfManager) {
+				u.setManager(null);
+				userRepository.save(u);				
+			}						
+		}
+    
+		//employee -> manager or employee -> admin
+		if (user.getRole().getId().equals(1L) && (newRole.getId().equals(2L) || newRole.getId().equals(3L))) {
+			user.setManager(null);
+			
+		}
+	
+		user.setRole(newRole);
+		
+		
+		//changing affectation
+		if (user_.getManager()!=null)
+		{   User manager = userRepository.findById(user_.getManager().getUserId()).get();
+			if(user.getRole().getId().equals(1L) && manager.getRole().getId().equals(2L)) {
+			user.setManager(manager);
+		}}
+		
+		
+		return userRepository.save(user);	
 	}
 	
 	

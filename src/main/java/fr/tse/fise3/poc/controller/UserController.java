@@ -1,5 +1,7 @@
 package fr.tse.fise3.poc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-  @Autowired
+    @Autowired
 	private UserRepository userRepository;
   
   	@Autowired
@@ -36,18 +38,18 @@ public class UserController {
 	
 	
 
-	@PostMapping("/create")
-	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest){
-		return new ResponseEntity<User>(userService.createUser(createUserRequest),HttpStatus.CREATED);
+	@PostMapping("/users/create/{idUser}")
+	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest,@PathVariable Long idUser){
+		return new ResponseEntity<User>(userService.createUser(createUserRequest, idUser),HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/change-role")
+	@PostMapping("/users/change-role")
 	public ResponseEntity<User> changeUserRole(@RequestBody ChangeUserRoleRequest changeUserRoleRequest){
 		return new ResponseEntity<User>(userService.changeUserRole(changeUserRoleRequest),HttpStatus.OK);
 	}
 
 	
-	@PostMapping("/change")
+	@PostMapping("/users/change")
 	public ResponseEntity<User> changeAffectationUser(@RequestBody ChangeUserRequest changeUserRequest){
 		return new ResponseEntity<User>(userService.changeAffectationForUser(changeUserRequest),HttpStatus.OK);
 	}
@@ -55,6 +57,11 @@ public class UserController {
 	@GetMapping("/users")
 	public Iterable<User> index() {
 		return userService.findActiveUsers();
+	}
+
+	@PostMapping("/users/edit")
+	public ResponseEntity<User> editUser(@RequestBody User user){
+		return new ResponseEntity<User>(userService.editUser(user),HttpStatus.OK);
 	}
 	
 	@GetMapping("/users/disable/{idUser}")
@@ -67,5 +74,9 @@ public class UserController {
 		return new ResponseEntity<User>(userService.findUser(idUser),HttpStatus.OK);
 	}
 	
+	@GetMapping("/users/manager/{managerId}")
+	public ResponseEntity<List<User>> findAllUsersOfManager(@PathVariable Long managerId){
+		return new ResponseEntity<List<User>>(userService.findUsersofManager(managerId),HttpStatus.OK);
+	}
 
 }

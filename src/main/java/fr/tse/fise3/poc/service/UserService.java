@@ -8,7 +8,7 @@ import fr.tse.fise3.poc.dto.CreateUserRequest;
 
 public interface UserService {
   
-	public User createUser(CreateUserRequest createUserRequest);
+	public User createUser(CreateUserRequest createUserRequest,Long idUser);
 
 	public List<User> findUsersofManager(Long idUser);
 	
@@ -24,6 +24,9 @@ public interface UserService {
 	
 	
 	public List<User> findActiveUsers();
+	
+	
+	public User editUser(User user);
 	
 	
 

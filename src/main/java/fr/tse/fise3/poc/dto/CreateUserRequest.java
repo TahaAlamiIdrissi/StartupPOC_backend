@@ -20,5 +20,6 @@ public class CreateUserRequest {
 	private String password;
 	private Instant createdAt;
 	private Long roleId;
+	private Long managerId;
 
 }

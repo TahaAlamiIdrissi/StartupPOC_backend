@@ -86,7 +86,6 @@ public class TimeServiceImpl  implements TimeService{
 	@Transactional
 	public boolean deleteTime(Long timeId) {
 		this.timeRepository.deleteById(timeId);
-		
 		return true;
 	}
 
