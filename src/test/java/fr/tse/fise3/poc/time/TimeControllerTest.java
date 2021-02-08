@@ -5,6 +5,8 @@ package fr.tse.fise3.poc.time;
 
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -19,6 +21,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -78,5 +82,12 @@ public class TimeControllerTest extends ControllerTest{
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-	}	
+	}
+	@Test
+	public void testDeleteTime() throws Exception {
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/api/v1/times/"+1)).andReturn();
+		   int status = mvcResult.getResponse().getStatus();
+		   assertEquals(200, status);
+	}
+	
 }

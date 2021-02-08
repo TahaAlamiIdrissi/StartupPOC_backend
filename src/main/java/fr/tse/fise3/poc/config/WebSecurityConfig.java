@@ -32,7 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		// TODO Auto-generated method stub
 		http.cors().and().csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/api/**")
+			.antMatchers("/api/**","/v2/api-docs",
+                    "/configuration/ui",
+                    "/swagger-resources/**",
+                    "/configuration/security",
+                    "/swagger-ui.html",
+                    "/webjars/**")
 			.permitAll()
 			.anyRequest()
 			.authenticated();
