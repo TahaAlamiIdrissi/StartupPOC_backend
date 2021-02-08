@@ -15,6 +15,7 @@ public class TimeRequest {
 	private LocalDateTime dateStart;
 	private LocalDateTime dateEnd;
 	private Long projectId;
+	private String username;
 
 
 }
