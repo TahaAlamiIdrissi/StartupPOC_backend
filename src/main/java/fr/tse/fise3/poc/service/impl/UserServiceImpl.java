@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 	private ProjectService projectService;
 
 	
-	public User createUser(CreateUserRequest createUserRequest) {
+	public User createUser(CreateUserRequest createUserRequest,Long idUser) {
 
 		// save data's coming from inputs
 		User user = new User();
@@ -73,16 +73,17 @@ public class UserServiceImpl implements UserService {
 		user.setRole(role);
 		
 		// if this ( MANAGER ) ROLE <= EMPLOYEE ( COMMING FROM the client side)
-		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
+		//UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
+          //      .getPrincipal();
 		
-		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
+		User currentUser = userRepository.findById(idUser).get();
 		if(currentUser.getRole().getLabel().equals("MANAGER"))
 			user.setManager(currentUser);
 		
 		if(currentUser.getRole().getLabel().equals("ADMIN")) {
-			User manager = userRepository.findById(createUserRequest.getManagerId()).get();
-			user.setManager(manager);
+			if(createUserRequest.getManagerId()!=null)
+			{User manager = userRepository.findById(createUserRequest.getManagerId()).get();
+			user.setManager(manager);}
 		}
 			
 		
@@ -163,6 +164,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findUser(Long idUser) {
+		
 		return userRepository.findById(idUser).get();
 	}
 
@@ -201,9 +203,12 @@ public class UserServiceImpl implements UserService {
 		System.out.println(user_.getEmail());
 		System.out.println(user_.getFirstname());
 		System.out.println(user_.getRole().getLabel());
+		System.out.println("*************");
+		System.out.println(user_.getRole().getId());
+		System.out.println("**************");
 		User user = userRepository.findById(user_.getUserId()).get();
 		Role newRole = roleRepository.findById(user_.getRole().getId()).get();
-		User manager = userRepository.findById(user_.getManager().getUserId()).get();
+	
 		
 		//changing infos
 		user.setFirstname(user_.getFirstname());
@@ -232,8 +237,9 @@ public class UserServiceImpl implements UserService {
 		
 		
 		//changing affectation
-		if (manager!=null)
-		{if(user.getRole().getId().equals(1L) && manager.getRole().getId().equals(2L)) {
+		if (user_.getManager()!=null)
+		{   User manager = userRepository.findById(user_.getManager().getUserId()).get();
+			if(user.getRole().getId().equals(1L) && manager.getRole().getId().equals(2L)) {
 			user.setManager(manager);
 		}}
 		
