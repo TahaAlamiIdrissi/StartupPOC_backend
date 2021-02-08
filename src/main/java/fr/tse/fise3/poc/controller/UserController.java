@@ -1,5 +1,7 @@
 package fr.tse.fise3.poc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,5 +74,9 @@ public class UserController {
 		return new ResponseEntity<User>(userService.findUser(idUser),HttpStatus.OK);
 	}
 	
+	@GetMapping("/users/manager/{managerId}")
+	public ResponseEntity<List<User>> findAllUsersOfManager(@PathVariable Long managerId){
+		return new ResponseEntity<List<User>>(userService.findUsersofManager(managerId),HttpStatus.OK);
+	}
 
 }
