@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 	private ProjectService projectService;
 
 	
-	public User createUser(CreateUserRequest createUserRequest) {
+	public User createUser(CreateUserRequest createUserRequest,Long idUser) {
 
 		// save data's coming from inputs
 		User user = new User();
@@ -73,16 +73,17 @@ public class UserServiceImpl implements UserService {
 		user.setRole(role);
 		
 		// if this ( MANAGER ) ROLE <= EMPLOYEE ( COMMING FROM the client side)
-		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
+		//UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
+          //      .getPrincipal();
 		
-		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
+		User currentUser = userRepository.findById(idUser).get();
 		if(currentUser.getRole().getLabel().equals("MANAGER"))
 			user.setManager(currentUser);
 		
 		if(currentUser.getRole().getLabel().equals("ADMIN")) {
-			User manager = userRepository.findById(createUserRequest.getManagerId()).get();
-			user.setManager(manager);
+			if(createUserRequest.getManagerId()!=null)
+			{User manager = userRepository.findById(createUserRequest.getManagerId()).get();
+			user.setManager(manager);}
 		}
 			
 		
