@@ -1,11 +1,7 @@
 package fr.tse.fise3.poc.controller;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -86,7 +82,7 @@ public class TimeController {
 	        
 	        User user = userService.findUser(userId);
 	         
-	        UserReportExporter exporter = new UserReportExporter(timesOfUser,user);
+	        UserReportExporter exporter = new UserReportExporter(timesOfUser,user, date);
 	        exporter.export(response);
 	         
 	    }

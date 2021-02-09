@@ -1,11 +1,8 @@
 package fr.tse.fise3.poc.exporter;
 
 import java.awt.Color;
-import java.util.Date;
 import java.util.List;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +17,12 @@ public class UserReportExporter {
 	 
 	 User user ;
 	 
-	 public UserReportExporter(List<Time> timesOfUser, User user) {
+	 String date;
+	 
+	 public UserReportExporter(List<Time> timesOfUser, User user, String date) {
 	        this.timesOfUser = timesOfUser;
 	        this.user = user;
+	        this.date = date;
 	    }
 	 
 	    private void writeTableHeader(PdfPTable table) {
@@ -64,7 +64,7 @@ public class UserReportExporter {
 	        font.setSize(18);
 	        font.setColor(Color.GRAY);
 	         
-	        Paragraph p = new Paragraph("MONTHLY REPORT", font);
+	        Paragraph p = new Paragraph("MONTHLY REPORT: "+ this.date, font);
 	        p.setAlignment(Paragraph.ALIGN_CENTER);
 	         
 	        document.add(p);

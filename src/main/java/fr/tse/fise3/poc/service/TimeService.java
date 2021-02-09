@@ -22,10 +22,7 @@ public interface TimeService {
 	
 
 	public Collection<Time> findTimesOfUser(Long idUser);
-  
-
-	public List<Time> findTimesOfUser(Long idUser);
-	
+  	
 
 	public boolean deleteTime(Long timeId);
 
