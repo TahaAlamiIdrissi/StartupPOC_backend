@@ -33,6 +33,9 @@ public class TimeServiceImpl  implements TimeService{
 	@Autowired	
 	private TimeRepository timeRepository;
 	
+	@Autowired
+	private AuthServiceImpl authService;
+	
 	
 	// Find all time affections of a user 
 	@Transactional(readOnly = true)
@@ -45,18 +48,14 @@ public class TimeServiceImpl  implements TimeService{
 		@Transactional
 		public Time createTime(TimeRequest timeRequest) {
 			
-			UserDetails currentUserDetails =(UserDetails) SecurityContextHolder
-														.getContext()
-														.getAuthentication()
-										        .getPrincipal();
-			
-			User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
+
 			Time time = new Time();
 			
 			time.setDateStart(timeRequest.getDateStart());
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
 			time.setDateOfProject(String.valueOf(time.getDateStart().format(formatter)));
 			time.setDateEnd(timeRequest.getDateEnd());
+			User currentUser = this.authService.getLoggedInUserInfo(timeRequest.getUsername());
 			time.setUser(currentUser);
 			
 			Project project = this.projectRepository.findById(timeRequest.getProjectId()).orElse(null);
@@ -78,12 +77,17 @@ public class TimeServiceImpl  implements TimeService{
   }
 	
 
-	@Override
+	// Find all time affections on database
+	@Transactional(readOnly = true)
 	public Collection<Time> findAllTimes() {
-		// TODO Auto-generated method stub
 		return this.timeRepository.findAll();
+
+	@Transactional
+	public boolean deleteTime(Long timeId) {
+		this.timeRepository.deleteById(timeId);
+		return true;
 	}
-	
+
 
 	
 }

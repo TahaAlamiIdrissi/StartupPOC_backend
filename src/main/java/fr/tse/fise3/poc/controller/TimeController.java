@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +35,7 @@ import fr.tse.fise3.poc.service.UserService;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600, methods = { RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH })
+@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600, methods = { RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH, RequestMethod.DELETE })
 public class TimeController {
 	
 	@Autowired 
@@ -53,6 +54,18 @@ public class TimeController {
 		return new ResponseEntity<Time>(this.timeService.createTime(timeRequest),HttpStatus.CREATED) ;
 	}
 	
+	@DeleteMapping(value = "/times/{timeId}")
+	public ResponseEntity<Long> deletePost(@PathVariable Long timeId) {
+
+		boolean isRemoved = this.timeService.deleteTime(timeId);
+
+	    if (!isRemoved) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+
+	    return new ResponseEntity<>(timeId, HttpStatus.OK);
+	}
+
 	@GetMapping("/times/content/{userId}")
 	public ResponseEntity<Collection<Time>> index(@PathVariable Long userId ) {
 		return new ResponseEntity<Collection<Time>>(timeService.findTimesOfUser(userId),HttpStatus.OK);
