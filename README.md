@@ -2,7 +2,7 @@
 
 A web application for time management  
 
-The project is divided into back-end and front-end part  
+The project is divided into back-end part and front-end part  
 
 
 [StartupPOC_backend](https://github.com/TahaAlamiIdrissi/StartupPOC_backend) : the back-end of the project using 
@@ -40,18 +40,29 @@ contains repository interface that extends JpaRepository for each domain
 contains service interface for each domain 
 
 ## ServiceImpl
-contains classes that implement service interfaces , these classes are used to write the business logic code that include  store, retrieve, update and delete operations
+contains classes that implement service interfaces , these classes have @Service annotation and write the business logic to store, retrieve, delete and updates data
+
+## Controller
+contains rest controllers
+
+## DTO 
+contains data transfer objects that encapsulate the data that we want to transfer in a single object
 
 ## Config
 contains the configuration class for spring security
 
+## Security
+contains the class that provides the jwt token to the authenticated  user
+
+## Exporter 
+contains the process to generate a time table in a pdf document
+
+## Utils
+contains the _LoadDatabase.java_ that fills the database with some data for testing  and _RoleUtils.java_ that affects the role id and label to a specific values
 
 
 
 
- 
-# StartupPOC_frontend
- 
  
  
 
