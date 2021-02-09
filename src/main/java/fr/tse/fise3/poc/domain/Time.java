@@ -35,8 +35,10 @@ public class Time {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private LocalDateTime dateStart;
+	
 	private LocalDateTime dateEnd;
-	private Month currentMonth;
+	
+	private String dateOfProject;
 	// many to one vers users
 	@ManyToOne
 	private User user;

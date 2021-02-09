@@ -68,21 +68,21 @@ public class TimeController {
 
 	@GetMapping("/times/content/{userId}")
 	public ResponseEntity<Collection<Time>> index(@PathVariable Long userId ) {
-		return new ResponseEntity<Collection<Time>>(timeService.getTimeContent(userId),HttpStatus.OK);
+		return new ResponseEntity<Collection<Time>>(timeService.findTimesOfUser(userId),HttpStatus.OK);
 	}
 
 	
-	@GetMapping("/times/{userId}/export/pdf")
-	public void exportToPDF(HttpServletResponse response, @PathVariable Long userId ) throws DocumentException, IOException {
+	@GetMapping("/times/{userId}/date/{date}/export/pdf")
+	public void exportToPDF(HttpServletResponse response, @PathVariable Long userId,@PathVariable String date ) throws DocumentException, IOException {
 	        response.setContentType("application/pdf");
-	        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-	        String currentDateTime = dateFormatter.format(new Date());
+	        //DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+	        //String currentDateTime = dateFormatter.format(new Date());
 	         
-	        String headerKey = "Content-Disposition";
-	        String headerValue = "attachment; filename=times_" + currentDateTime + ".pdf";
-	        response.setHeader(headerKey, headerValue);
+	        //String headerKey = "Content-Disposition";
+	        //String headerValue = "attachment; filename=times_" + currentDateTime + ".pdf";
+	        //response.setHeader(headerKey, headerValue);
 	         
-	        List<Time> timesOfUser = timeService.findTimesOfUser(userId);
+	        List<Time> timesOfUser = timeService.getTimeContent(userId,date);
 	        
 	        User user = userService.findUser(userId);
 	         

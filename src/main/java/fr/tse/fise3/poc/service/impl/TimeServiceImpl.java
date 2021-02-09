@@ -1,7 +1,7 @@
 package fr.tse.fise3.poc.service.impl;
 
 import java.time.LocalDateTime;
-import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +52,8 @@ public class TimeServiceImpl  implements TimeService{
 			Time time = new Time();
 			
 			time.setDateStart(timeRequest.getDateStart());
-			time.setCurrentMonth(timeRequest.getDateStart().getMonth());
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+			time.setDateOfProject(String.valueOf(time.getDateStart().format(formatter)));
 			time.setDateEnd(timeRequest.getDateEnd());
 			User currentUser = this.authService.getLoggedInUserInfo(timeRequest.getUsername());
 			time.setUser(currentUser);
@@ -64,30 +65,29 @@ public class TimeServiceImpl  implements TimeService{
 			
 		}
 
-	public Collection<Time> getTimeContent(Long userId) {
+	public List<Time> getTimeContent(Long userId,String date) {
 		// TODO Auto-generated method stub
-		return timeRepository.findAllByUserUserIdAndCurrentMonth(userId,LocalDateTime.now().getMonth());
+		return timeRepository.findAllByUserUserIdAndDateOfProject(userId, date);
 	}
 
 	// Find all times of a user
 	@Override
-	public List<Time> findTimesOfUser(Long idUser) {
+	public Collection<Time> findTimesOfUser(Long idUser) {
 		return this.timeRepository.findByUserUserId(idUser);
   }
 	
-
 
 	// Find all time affections on database
 	@Transactional(readOnly = true)
 	public Collection<Time> findAllTimes() {
 		return this.timeRepository.findAll();
-	}	
-	
+
 	@Transactional
 	public boolean deleteTime(Long timeId) {
 		this.timeRepository.deleteById(timeId);
 		return true;
 	}
+
 
 	
 }
