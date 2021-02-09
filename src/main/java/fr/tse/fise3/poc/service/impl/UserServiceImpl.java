@@ -69,9 +69,9 @@ public class UserServiceImpl implements UserService {
 		user.setCreatedAt(Instant.now());
 
 		// Set the user's role
+		
 		Role role = roleRepository.findById(createUserRequest.getRoleId()).get();
 		user.setRole(role);
-		
 		// if this ( MANAGER ) ROLE <= EMPLOYEE ( COMMING FROM the client side)
 		//UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
           //      .getPrincipal();
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 		if(currentUser.getRole().getLabel().equals("MANAGER"))
 			user.setManager(currentUser);
 		
-		if(currentUser.getRole().getLabel().equals("ADMIN")) {
+		 if(currentUser.getRole().getLabel().equals("ADMIN")) {
 			if(createUserRequest.getManagerId()!=null)
 			{User manager = userRepository.findById(createUserRequest.getManagerId()).get();
 			user.setManager(manager);}

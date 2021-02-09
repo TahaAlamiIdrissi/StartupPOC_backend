@@ -11,6 +11,7 @@ import fr.tse.fise3.poc.domain.Project;
 import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
+import fr.tse.fise3.poc.service.AuthService;
 import fr.tse.fise3.poc.service.ProjectService;
 
 @Service
@@ -19,6 +20,9 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Autowired
 	private UserRepository userRepository;	
+	
+	@Autowired
+	private AuthService authService;
 	
 	@Autowired	
 	private ProjectRepository projectRepository;
@@ -34,15 +38,10 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	// Only a manager can create projects. The projects created by a manager are added to his list of projects
 	@Transactional
-	public Project createProject(Project project) {
+	public Project createProject(Project project,String username) {
 		
-		UserDetails currentUserDetails =(UserDetails) SecurityContextHolder
-													.getContext()
-													.getAuthentication()
-									        .getPrincipal();
-		
-		User currentUser = userRepository.findByUsername(currentUserDetails.getUsername()).get();
-		
+		User currentUser = this.authService.getLoggedInUserInfo(username);
+				
 		project.setManager(currentUser);
 		
 		return this.projectRepository.save(project);
