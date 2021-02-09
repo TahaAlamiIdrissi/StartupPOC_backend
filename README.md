@@ -33,7 +33,7 @@ contains the different domain classes of the project. The following class diagra
 
 ![](poc_class_diagram.png)
 
-#### <span style="color:blue">Repository</span>
+#### Repository
 contains repository interface that extends JpaRepository for each domain 
 
 #### Service
@@ -58,7 +58,7 @@ contains the class that provides the jwt token for the authenticated  user
 contains the process to generate a time table in a pdf document
 
 #### Utils
-contains the _LoadDatabase.java_ that fills the database with some data for testing  and _RoleUtils.java_ that affects the role id and label to a specific values
+contains the _LoadDatabase.java_ that fills the database with some data for testing  and __RoleUtils.java__ that affects the role id and label to a specific values
 
 # Api documentation
 
@@ -70,7 +70,7 @@ This is the following link to access to the the documentation :
 To run the project  : 
 
 - Import the project as a maven project 
-- Run the class _HowToAchieveApplication.java _ 
+- Run the class __HowToAchieveApplication.java __ 
 
 
 
