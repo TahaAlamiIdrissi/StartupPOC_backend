@@ -1,29 +1,15 @@
 package fr.tse.fise3.poc.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.Collection;
+import java.util.List;
 
-import fr.tse.fise3.poc.repository.ProjectRepository;
-import fr.tse.fise3.poc.repository.RoleRepository;
-import fr.tse.fise3.poc.repository.TimeRepository;
-import fr.tse.fise3.poc.repository.UserRepository;
-import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
+import fr.tse.fise3.poc.domain.Project;
 
-@Service
-public class ProjectService {
+public interface ProjectService {
 
-	@Autowired
-	private RoleRepository roleRepository;
+	public Collection<Project> findAllProjects();
 	
-	@Autowired
-	private UserRepository userRepository;	
+	public Project createProject(Project project,String username);
 	
-	@Autowired	
-	private ProjectRepository projectRepository;
-	
-	@Autowired	
-	private TimeRepository timeRepository;
-	
-	@Autowired	
-	private VerificationTokenRepositoy verificationTokenRepository;
+	public List<Project>  findProjectsOfManager(Long managerId);
 }

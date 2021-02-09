@@ -1,29 +1,31 @@
 package fr.tse.fise3.poc.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import fr.tse.fise3.poc.domain.Time;
+import fr.tse.fise3.poc.dto.TimeRequest;
 
-import fr.tse.fise3.poc.repository.ProjectRepository;
-import fr.tse.fise3.poc.repository.RoleRepository;
-import fr.tse.fise3.poc.repository.TimeRepository;
-import fr.tse.fise3.poc.repository.UserRepository;
-import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
+public interface TimeService {
+  
+	
+	public Collection<Time> findAllTimes();
+	
+	
+	public Optional<Time> findTimesById(Long id);
+	
+	
+	public Time createTime(TimeRequest timeRequest);
+	
+	
+	public List<Time> getTimeContent(Long userId,String date);
+	
 
-@Service
-public class TimeService {
+	public Collection<Time> findTimesOfUser(Long idUser);  	
 
-	@Autowired
-	private RoleRepository roleRepository;
+
+	public boolean deleteTime(Long timeId);
+
 	
-	@Autowired
-	private UserRepository userRepository;	
 	
-	@Autowired	
-	private ProjectRepository projectRepository;
-	
-	@Autowired	
-	private TimeRepository timeRepository;
-	
-	@Autowired	
-	private VerificationTokenRepositoy verificationTokenRepository;
 }

@@ -1,7 +1,6 @@
 package fr.tse.fise3.poc.domain;
 
 import java.time.Instant;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,12 +33,18 @@ public class User {
 	@NotBlank(message = "password required")
 	private String password;
 	
+	private String firstname;
+	private String lastname;
+	private String fullname;
 	private Instant createdAt;
 	private boolean enabled;
 	
+	@ManyToOne
+	private User manager;
 	// many to one relationship from user to role
 	
 	@ManyToOne
 	private Role role;
+	
 
 }

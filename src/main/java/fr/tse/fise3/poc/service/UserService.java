@@ -1,32 +1,33 @@
 package fr.tse.fise3.poc.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
+import fr.tse.fise3.poc.domain.User;
+import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
+import fr.tse.fise3.poc.dto.ChangeUserRequest;
+import fr.tse.fise3.poc.dto.CreateUserRequest;
 
-import fr.tse.fise3.poc.repository.ProjectRepository;
-import fr.tse.fise3.poc.repository.RoleRepository;
-import fr.tse.fise3.poc.repository.TimeRepository;
-import fr.tse.fise3.poc.repository.UserRepository;
-import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
+public interface UserService {
+  
+	public User createUser(CreateUserRequest createUserRequest,Long idUser);
 
-
-
-@Service
-public class UserService {
+	public List<User> findUsersofManager(Long idUser);
 	
-	@Autowired
-	private RoleRepository roleRepository;
+	public User changeUserRole(ChangeUserRoleRequest changeUserRoleRequest);
 	
-	@Autowired
-	private UserRepository userRepository;	
+	public User changeAffectationForUser(ChangeUserRequest changeUserRequest);
 	
-	@Autowired	
-	private ProjectRepository projectRepository;
 	
-	@Autowired	
-	private TimeRepository timeRepository;
+	public User findUser(Long idUser);
 	
-	@Autowired	
-	private VerificationTokenRepositoy verificationTokenRepository;
+	
+	public User disableUser(Long idUser) ;
+	
+	
+	public List<User> findActiveUsers();
+	
+	
+	public User editUser(User user);
+	
+	
 
 }
