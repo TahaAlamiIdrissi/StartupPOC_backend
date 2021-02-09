@@ -70,6 +70,7 @@ This is the following link to access to the the documentation :
 To run the project  : 
 
 - Import the project as a maven project 
+- Modify the __application.properties__ to match the correct configuration for the database ( port, username, password, url )
 - Run the class __HowToAchieveApplication.java __ 
 
 
