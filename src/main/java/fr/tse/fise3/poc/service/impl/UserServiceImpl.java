@@ -69,9 +69,9 @@ public class UserServiceImpl implements UserService {
 		user.setCreatedAt(Instant.now());
 
 		// Set the user's role
+		
 		Role role = roleRepository.findById(createUserRequest.getRoleId()).get();
 		user.setRole(role);
-		
 		// if this ( MANAGER ) ROLE <= EMPLOYEE ( COMMING FROM the client side)
 		//UserDetails currentUserDetails =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
           //      .getPrincipal();
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 		if(currentUser.getRole().getLabel().equals("MANAGER"))
 			user.setManager(currentUser);
 		
-		if(currentUser.getRole().getLabel().equals("ADMIN")) {
+		 if(currentUser.getRole().getLabel().equals("ADMIN")) {
 			if(createUserRequest.getManagerId()!=null)
 			{User manager = userRepository.findById(createUserRequest.getManagerId()).get();
 			user.setManager(manager);}
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
 		mailService.sendMail(new NotificationEmail("Please Activate your Account",
                 user.getEmail(), "Thank you for signing up to <strong>Achieve</strong>, " +
                 "please click on the below url to activate your account : " +
-                "http://localhost:8080/api/auth/accountVerification/" + token));
+                "http://localhost:8081/api/auth/accountVerification/" + token));
 		return savedUser;
 	}
   

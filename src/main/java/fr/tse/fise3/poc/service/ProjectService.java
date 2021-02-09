@@ -9,7 +9,7 @@ public interface ProjectService {
 
 	public Collection<Project> findAllProjects();
 	
-	public Project createProject(Project project);
+	public Project createProject(Project project,String username);
 	
 	public List<Project>  findProjectsOfManager(Long managerId);
 }
