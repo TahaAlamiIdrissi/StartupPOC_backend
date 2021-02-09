@@ -30,7 +30,8 @@ The project contains the following folders:
 
 #### domain
 contains the different entities of the project .  
-The following class diagram presents the different attribute of our entities and the relationships between them .
+The following class diagram presents the different attributes of our entities and the relationships between them .
+![](poc_class_diagram.png)
 
 #### config
 contains 
