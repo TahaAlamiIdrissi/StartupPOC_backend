@@ -1,11 +1,8 @@
 package fr.tse.fise3.poc.exporter;
 
 import java.awt.Color;
-import java.util.Date;
 import java.util.List;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServletResponse;
