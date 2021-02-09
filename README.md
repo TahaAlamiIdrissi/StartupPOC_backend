@@ -2,16 +2,17 @@
 
 A web application for time management
 
-#Structure
+# Structure
 
 ## StartupPOC_backend
 
- [Caption](https://example.com)
+ [StartupPOC_backend](https://github.com/TahaAlamiIdrissi/StartupPOC_backend)
  
+ ## StartupPOC_frontend
+ 
+ [StartupPOC_frontend](https://github.com/TahaAlamiIdrissi/StartupPOC_frontend)
  
 
 
-# StartupPOC_backend
 
-Startup POC project back-end using Springboot  
 
