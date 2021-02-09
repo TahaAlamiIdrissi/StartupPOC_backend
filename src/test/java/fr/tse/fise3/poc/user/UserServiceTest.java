@@ -24,7 +24,7 @@ import fr.tse.fise3.poc.utils.RoleUtils;
 /**
  * @author root
  *
- */
+ */	
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class UserServiceTest {

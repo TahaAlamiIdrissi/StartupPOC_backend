@@ -75,6 +75,7 @@ public class TimeServiceImpl  implements TimeService{
 	public Collection<Time> findAllTimes() {
 		return this.timeRepository.findAll();
 	}
+
 	@Transactional
 	public boolean deleteTime(Long timeId) {
 		this.timeRepository.deleteById(timeId);

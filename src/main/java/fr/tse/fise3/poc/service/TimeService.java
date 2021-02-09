@@ -21,8 +21,8 @@ public interface TimeService {
 	public List<Time> getTimeContent(Long userId,String date);
 	
 
-	public Collection<Time> findTimesOfUser(Long idUser);
-  	
+	public Collection<Time> findTimesOfUser(Long idUser);  	
+
 
 	public boolean deleteTime(Long timeId);
 
