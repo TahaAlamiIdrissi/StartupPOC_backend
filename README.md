@@ -17,20 +17,20 @@ The project is divided into back-end part and front-end part
  
 # StartupPOC_backend
 
-This project builds rest service with springboot and implements a full backend api 
+This project builds rest services with springboot and implements a full backend api 
 
-## Structure
+# Structure
 The project contains the following folders: 
 
 - src/main/java : contains the implementation of  different classes  of the project
 - src/main/test : contains unit tests for the implemented classes
 - src/main/ressources : contains the __application.properties__ where we can find the configuration of  datasource and mailing properties
 
-## Packages 
+# Packages 
 
 ## Domain
-contains the different domain classes of the project .  
-The following class diagram presents the different attributes of our entities and the relationships between them .
+contains the different domain classes of the project. The following class diagram presents the different attributes of our entities and the relationships between them :  
+
 ![](poc_class_diagram.png)
 
 ## Repository 
@@ -52,7 +52,7 @@ contains data transfer objects that encapsulate the data that we want to transfe
 contains the configuration class for spring security
 
 ## Security
-contains the class that provides the jwt token to the authenticated  user
+contains the class that provides the jwt token for the authenticated  user
 
 ## Exporter 
 contains the process to generate a time table in a pdf document
@@ -60,6 +60,17 @@ contains the process to generate a time table in a pdf document
 ## Utils
 contains the _LoadDatabase.java_ that fills the database with some data for testing  and _RoleUtils.java_ that affects the role id and label to a specific values
 
+# Api documentation
+
+The api documentation is generated using __Swagger__ . 
+This is the following link to access to the the documentation : 
+
+# Installation 
+
+To run the project  : 
+
+- Import the project as a maven project 
+- Run the class _HowToAchieveApplication.java _ 
 
 
 
