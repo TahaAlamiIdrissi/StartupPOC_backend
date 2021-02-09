@@ -17,10 +17,10 @@ public interface TimeService {
 	public Time createTime(TimeRequest timeRequest);
 	
 	
-	public Collection<Time> getTimeContent(Long userId); 
+	public List<Time> getTimeContent(Long userId,String date);
 	
 	
-	public List<Time> findTimesOfUser(Long idUser);
+	public Collection<Time> findTimesOfUser(Long idUser);
 
 
 

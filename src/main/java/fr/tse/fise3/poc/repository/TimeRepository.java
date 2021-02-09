@@ -17,7 +17,9 @@ import fr.tse.fise3.poc.domain.Time;
 public interface TimeRepository extends JpaRepository<Time, Long> {
 
 
-	Collection<Time> findAllByUserUserIdAndCurrentMonth(Long userId,Month now);
+	public List<Time> findAllByUserUserIdAndDateOfProject(Long userId,String date);
 
 	public List<Time> findByUserUserId(Long managerId);
+	
+	
 }
