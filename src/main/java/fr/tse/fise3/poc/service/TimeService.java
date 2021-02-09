@@ -7,6 +7,7 @@ import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.dto.TimeRequest;
 
 public interface TimeService {
+  
 	
 	public Collection<Time> findAllTimes();
 	
@@ -17,9 +18,12 @@ public interface TimeService {
 	public Time createTime(TimeRequest timeRequest);
 	
 	
-	public Collection<Time> getTimeContent(Long userId); 
+	public List<Time> getTimeContent(Long userId,String date);
 	
-	
+
+	public Collection<Time> findTimesOfUser(Long idUser);
+  
+
 	public List<Time> findTimesOfUser(Long idUser);
 	
 
