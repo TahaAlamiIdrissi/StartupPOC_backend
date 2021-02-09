@@ -33,7 +33,7 @@ contains the different domain classes of the project. The following class diagra
 
 ![](poc_class_diagram.png)
 
-#### Repository 
+#### <span style="color:blue">Repository</span>
 contains repository interface that extends JpaRepository for each domain 
 
 #### Service
