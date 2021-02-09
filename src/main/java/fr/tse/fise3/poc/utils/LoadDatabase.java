@@ -42,8 +42,8 @@ public class LoadDatabase {
 			public void run(String... args) throws Exception {
                initRoleTable(roleRepository);
                //initUserTable(userRepository);
-//               initProjectTable(projectRepository);
-//               initTimeTable(timeRepository);
+               //initProjectTable(projectRepository);
+               //initTimeTable(timeRepository);
 			}	
 		};
 	}

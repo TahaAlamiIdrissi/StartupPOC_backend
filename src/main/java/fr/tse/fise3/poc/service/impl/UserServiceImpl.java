@@ -1,30 +1,22 @@
 package fr.tse.fise3.poc.service.impl;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import fr.tse.fise3.poc.domain.NotificationEmail;
-import fr.tse.fise3.poc.domain.Project;
 import fr.tse.fise3.poc.domain.Role;
-import fr.tse.fise3.poc.domain.Time;
 import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
 import fr.tse.fise3.poc.domain.VerificationToken;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
-import fr.tse.fise3.poc.repository.ProjectRepository;
 import fr.tse.fise3.poc.repository.RoleRepository;
-import fr.tse.fise3.poc.repository.TimeRepository;
 import fr.tse.fise3.poc.repository.UserRepository;
 import fr.tse.fise3.poc.repository.VerificationTokenRepositoy;
 import fr.tse.fise3.poc.service.MailService;
-import fr.tse.fise3.poc.service.ProjectService;
 import fr.tse.fise3.poc.service.UserService;
 
 
@@ -41,19 +33,10 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;	
 	
 	@Autowired	
-	private ProjectRepository projectRepository;
-	
-	@Autowired	
-	private TimeRepository timeRepository;
-	
-	@Autowired	
 	private VerificationTokenRepositoy verificationTokenRepository;
 	
 	@Autowired
 	private MailService mailService;
-	
-	@Autowired
-	private ProjectService projectService;
 
 	
 	public User createUser(CreateUserRequest createUserRequest,Long idUser) {
