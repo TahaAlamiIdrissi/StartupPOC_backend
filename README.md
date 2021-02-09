@@ -63,7 +63,7 @@ contains the _LoadDatabase.java_ that fills the database with some data for test
 # Api documentation
 
 The api documentation is generated using __Swagger__ . 
-This is the following link to access to the the documentation : 
+This is the following link to have access to the the documentation :  [Swagger - doc](http://localhost:8081/swagger-ui.html)
 
 # Installation 
 
