@@ -18,11 +18,13 @@ The project is divided into back-end and front-end part
 
 This project builds rest service with springboot and implements a full backend api 
 
-## Structure 
-
+## Structure
 The project contains the following packages : 
 
-- src/main/java 
+-- src/main/java : contains the implementation of  different classes  of the project
+-- src/main/test : contains unit tests for the implemented classes
+-- src/main/ressources : contains the __application.properties__ where we can find the configuration of  datasource and mailing properties
+
 
 
 
