@@ -17,8 +17,6 @@ import fr.tse.fise3.poc.domain.User;
 import fr.tse.fise3.poc.dto.ChangeUserRoleRequest;
 import fr.tse.fise3.poc.dto.ChangeUserRequest;
 import fr.tse.fise3.poc.dto.CreateUserRequest;
-import fr.tse.fise3.poc.repository.UserRepository;
-import fr.tse.fise3.poc.service.TimeService;
 import fr.tse.fise3.poc.service.UserService;
 
 @RestController
@@ -30,14 +28,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-    @Autowired
-	private UserRepository userRepository;
-  
-  	@Autowired
-  	private TimeService timeService;
 	
-	
-
 	@PostMapping("/users/create/{idUser}")
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest,@PathVariable Long idUser){
 		return new ResponseEntity<User>(userService.createUser(createUserRequest, idUser),HttpStatus.CREATED);

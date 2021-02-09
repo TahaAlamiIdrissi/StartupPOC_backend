@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import fr.tse.fise3.poc.exception.AchieveNotFoundException;
 import io.jsonwebtoken.Jwts;
-import lombok.AllArgsConstructor;
 
 @Service
 public class JwtProvider {

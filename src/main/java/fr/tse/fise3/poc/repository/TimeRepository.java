@@ -3,9 +3,6 @@
  */
 package fr.tse.fise3.poc.repository;
 
-import java.time.Month;
-import java.util.Collection;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
